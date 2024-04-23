@@ -1,0 +1,41 @@
+<form #forma="ngForm" (ngSubmit)="agregarCuarteo(forma)">
+    <div class="container to animated fadeIn">
+        <div class="row">
+            <div class="col-md-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb text-center">
+                        <li class="breadcrumb-item active " aria-current="page"> <i class="fa fa-list"></i> Cuarteos de Medias</li>
+                    </ol>
+                </nav>
+            </div>
+            <!--buscar media  -->
+            <div class="col-md-6 to">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1"><i class="fa fa-search"> </i> </span>
+                    </div>
+                    <input (keyup)="dataToggle(valor)" #valor type="number" name="kiloMedia" [(ngModel)]="kiloMedia" autocomplete="off" class="form-control" placeholder="Peso de la Media" aria-label="Username" aria-describedby="basic-addon1" required autocomplete="off">
+                </div>
+                <div class="product" *ngIf="toggle">
+                    <div class="alert alert-info">
+                        <div (click)="select(item)" class="data" *ngFor="let item of data">
+                            {{ item.kiloMedia }} __ {{item.nroTropa}}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-6 to" *ngIf="!cambio">
+                <button [disabled]="forma.invalid" type="submit" class="btn btn-primary btn-block btn-lg">Agregar Cuarteo</button>
+            </div>
+            <div class="col-md-6 to" *ngIf="cambio">
+                <button type="submit" class="btn btn-primary btn-block btn-lg"><i class="fa fa-spinner fa-spin"></i> Guardando ......</button>
+            </div>
+        </div>
+        <hr class="hr">
+    </div>
+
+    <input type="hidden" name="nroTropa" [(ngModel)]="nroTropa" placeholder="tropa">
+    <input type="hidden" name="idInventario" [(ngModel)]="idInventario" placeholder="idinventario">
+</form>

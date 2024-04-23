@@ -1,0 +1,32 @@
+
+    <div class="page">
+
+        <app-cabezera></app-cabezera>
+        <div class="page-content d-flex align-items-stretch">
+  
+       <app-menu></app-menu>
+  
+         <div class="content-inner">
+  
+               <header class="page-header">
+                <div class="container-fluid">
+                  <h2 class="no-margin-bottom text-center">Notas de Débito</h2>
+                </div>
+              </header>
+  
+              <div class="container main animated fadeIn">
+                  <div class="fondo">
+                    <nav class="nav nav-pills nav-fill">
+                      <a class="nav-item nav-link" routerLinkActive="activo"  [routerLink]="['listadoDebito']"><i class="fa fa-list"></i>  Listado Notas Débito</a>
+                      <a class="nav-item nav-link" routerLinkActive="activo"  [routerLink]="['agregarDebito']" ><i class="fa fa-plus-square"></i>  Agregar Notas Débito</a>
+                      <a class="nav-item nav-link" routerLinkActive="activo"  [routerLink]="['editarDebito']" ><i class="fa fa-pencil"></i> Agregar Notas Débito S/Cheque</a>
+                     </nav>
+                     <br>
+                     <router-outlet></router-outlet>    
+      
+              <app-footer></app-footer>
+              </div>
+            </div>
+      </div>
+
+

@@ -1,0 +1,187 @@
+<div class="row">
+    <div class="col-md-5"></div>
+    <div class="col-md-7">
+        <div class="spiner" *ngIf="loader == false">
+            <img src="assets/img/cargando.gif" alt="" width="120">
+        </div>
+    </div>
+    <div class="col-md-12 text-center" *ngIf="loader == false">
+        <p>Espere mientra se busca en la base de datos.</p>
+        <p>Esta acción puede tardar unos minutos.</p>
+    </div>
+</div>
+
+
+<div class="row" *ngIf="loader == true">
+    <div class="col-md-12">
+        <div class="container to animated fadeIn" *ngIf="loader">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item active" aria-current="page"> <i class="fa fa-list"></i> Listado de Productos</li>
+                </ol>
+            </nav>
+
+            <form #action="ngForm" (ngSubmit)="buscarMedia(action)">
+                <div class="row">
+                    <div class="col tops1">
+
+                        <input autocomplete="off" required name="medida" type="text" class="form-control" placeholder="Buscar Tropa o Kilos " [(ngModel)]="filterQuery" aria-label="Username" aria-describedby="basic-addon1">
+                    </div>
+                    <div class="col">
+                        {{select}}
+                        <select class="custom-select" name="tipo" ngModel required>
+                        
+                        <option value="1">Kilos</option>
+                        <option value="2">Tropa</option>
+                      </select>
+                    </div>
+                    <div class="col tops1">
+                        <button class="btn btn-warning" [disabled]="action.invalid">Buscar</button>
+                    </div>
+                </div>
+            </form>
+
+            <hr>
+            <div class="table-responsive">
+                <div class="card">
+                    <div class="card-body">
+                        <table class="table table-bordered table-sm">
+                            <thead class="bg-info">
+                                <tr>
+
+                                    <th class="text-white" scope="col"> Kilos Media</th>
+                                    <th class="text-white" scope="col">Nro.Tropa</th>
+                                    <th class="text-white" scope="col">Estado</th>
+                                    <th class="text-white" scope="col">Cantidad</th>
+                                    <!-- <th class="text-white" scope="col">Restantes</th> -->
+                                    <th class="text-white text-center" scope="col">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of data">
+                                    <td>{{ item.kiloMedia }}</td>
+                                    <td>{{ item.nroTropa }}</td>
+                                    <td [ngClass]="{'text-success ': item.estado== 'Disponible', 'text-danger ': item.estado== 'Vendida'}"> {{item.estado}} </td>
+                                    <td>{{ item.cantidad }}</td>
+                                    <!-- <td>{{ item.cantMedia - item.cantidad  }}</td> -->
+                                    <td class="text-center">
+                                        <a data-toggle="modal" data-target=".mediaTropa" title="Mas Información" class="btn btn-outline-success btn-sm" (click)="masInfo(item.nroTropa)"><i class="fa fa-plus fa-1x  btn-outline-success"></i></a>
+                                        <a title="Editar Producto" class="btn btn-outline-primary btn-sm" routerLink="../editarInv/{{item.idInventario}}"><i class="fa fa-edit fa-1x  btn-outline-primary"></i></a>
+                                        <!-- <span  class="btn btn-outline-danger btn-sm" title="Eliminar Producto" data-toggle="modal" data-backdrop="true" (click)="borrarCat(item.idProductos)"><i class="fa fa-trash fa-1x  btn-outline-danger"></i></span> -->
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="table">
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <button type="button" class="btn btn-primary" (click)="mas()">Cargar mas hacienda</button>
+                                </td>
+                            </tr>
+                            <td colspan="6">
+                                <span class="alert alert-info"> Cantidad de Medias: {{ data.length }}</span>
+                                <span class="alert alert-info"> Medias para Vender: {{ totalMedia }}</span>
+                                <span class="alert alert-info">Kilos disponibles: {{ total }}</span>
+                                <span class="alert alert-info"> Kilos Totales: {{ totales }}</span>
+                            </td>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <hr class="hr">
+    </div>
+</div>
+
+
+
+<div class="modal fade mediaTropa" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div id="areaImprimir">
+                <div class="row">
+                    <div class="col-md-12">
+                        <br>
+                        <div class="modal-header">
+                            <h3 class="modal-title text-center" id="exampleModalLabel">Listado de medias por Tropas:</h3>
+                        </div>
+                        <div class="card">
+                            <div class="card-body alert alert-success">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <h5 class="modal-title" id="exampleModalLongTitle"> Tropa : {{ tropa }}</h5>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Medias : {{ totalTropaLength }}</h5>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Kilos : {{ totalTropa }}</h5>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Total : {{ restante }}</h5>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Por ingresar : {{ restante- totalTropaLength }}</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <table class="table table-bordered table-sm table-hover">
+                    <thead class="bg-warning">
+                        <tr>
+                            <th class="text-white">Dueño Hacienda</th>
+                            <th class="text-white">Kilo de la Media</th>
+                            <th class="text-white">C. Kilos</th>
+                            <th class="text-white">Fecha faena</th>
+                            <th class="text-white">Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let tropa of dataTropa">
+                            <td>{{ tropa.dueHacienda }}</td>
+                            <td>{{ tropa.kiloMedia }}</td>
+                            <td>{{tropa.cantKilos}}</td>
+                            <td>{{tropa.fechaFaena | date : "dd/MM/yyyy"}}</td>
+                            <td [ngClass]="{'text-success' : tropa.estado == 'Disponible', 'text-danger' : tropa.estado == 'Vendida' }">{{tropa.estado}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" (click)="salir()">Salir</button>
+                <button type="button" class="btn btn-primary" (click)="imprimir('areaImprimir')">Imprimir</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-danger" id="exampleModalLongTitle">Eliminar Producto </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+            </div>
+            <div class="modal-body">
+                <p class="alert alert-info">Desea eliminar el producto?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">SI</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">NO</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,55 @@
+<div class="row tops" *ngIf="dato">
+  <div class="col">
+    <div class="card text-center">
+  <h5 class="card-header text-success">Exitos!!</h5>
+  <div class="card-body">
+    <h5 class="card-title">Vendedor Modificado!</h5>
+    <p class="card-text text-info">El vendedor ha sido <strong>modificado</strong> correctamente en la base de datos.</p>
+    <button (click)="back()" class="btn btn-danger">Volver</button>
+  </div>
+</div>
+  </div>
+</div>
+
+
+<div class="row tops" *ngIf="datos">
+  <div class="col">
+    <div class="card text-center">
+  <h5 class="card-header text-danger">Error!!</h5>
+  <div class="card-body">
+    <h5 class="card-title">Fallo al editar vendedor!</h5>
+    <p class="card-text text-danger">se ha producido un  <strong>error</strong> al tratar de editar al vendedor en la base de datos.</p>
+  <p class="card-text text-danger">si el error persiste <strong>por favor</strong> pongase en contacto con su admnistrador.</p>
+    <button (click)="back()" class="btn btn-primary">Volver</button>
+  </div>
+</div>
+  </div>
+</div>
+
+<div class="row tops" *ngIf="bajas">
+  <div class="col">
+    <div class="card text-center">
+  <h5 class="card-header text-danger">Exitos!!</h5>
+  <div class="card-body">
+    <h5 class="card-title">Vendedor Eliminado!</h5>
+    <p class="card-text text-info">El vendedor ha sido <strong>dado de baja</strong> correctamente en la base de datos.</p>
+
+    <button (click)="back()" class="btn btn-danger">Volver</button>
+  </div>
+</div>
+  </div>
+</div>
+
+<div class="row tops" *ngIf="altas">
+  <div class="col">
+    <div class="card text-center">
+  <h5 class="card-header text-danger">Exitos!!</h5>
+  <div class="card-body">
+    <h5 class="card-title">Vendedor Ingresado!</h5>
+    <p class="card-text text-info">El vendedor ha sido <strong>dado de alta</strong> correctamente en la base de datos.</p>
+
+    <button (click)="back()" class="btn btn-danger">Volver</button>
+  </div>
+</div>
+  </div>
+</div>

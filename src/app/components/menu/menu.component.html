@@ -1,0 +1,40 @@
+<nav class="side-navbar" >
+  <!-- Sidebar Header-->
+  <div class="sidebar-header d-flex align-items-center">
+    <div class="avatar"><img src="assets/img/logo.jpg" alt="..." class="img-fluid rounded-circle"></div>
+       <div class="title">
+          <!-- <h1 class="h4">Los Magnates</h1> -->
+              <p>Los Magnates:  {{fechaCreado | date: 'yyyy'}}</p>
+              <p>Tipo:  {{rol }}</p>
+               <small class="text-danger">Bienvenido: {{ nombreAdmin | uppercase }}</small>
+        </div>
+  </div>
+  <!-- Sidebar Navidation Menus-->
+  <span class="heading text-info">Menu Principal</span>
+  <ul class="list-unstyled">
+            <li routerLinkActive="active"><a [routerLink]="['/principal']"> <i class="icon-home"></i>Principal </a></li>
+            <li routerLinkActive="active"><a [routerLink]="['/productos']"> <i class="icon-grid"></i>Productos </a></li>
+            <li><a href="#inventario" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>Inventarios </a>
+              <ul id="inventario" class="collapse list-unstyled ">
+                <li routerLinkActive="active"><a [routerLink]="['/inventario']"><i class="fa fa-edit text-primary"></i>  Medias </a></li>
+                <li routerLinkActive="active"><a [routerLink]="['/cuarteo']"><i class="fa fa-edit text-primary"></i>  Cuarteos </a></li>
+
+              </ul>
+            </li>
+            <li><a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>Notas Contables</a>
+              <ul id="exampledropdownDropdown" class="collapse list-unstyled ">
+                 <li><a [routerLink]="['/notaCredito']" ><i class="fa fa-edit text-primary"></i> Notas Créditos</a></li>
+                 <li><a [routerLink]="['/notaDebito']" ><i class="fa fa-edit text-primary"></i> Notas Débitos</a></li>
+              </ul>
+            </li>
+
+            <li routerLinkActive="active"><a [routerLink]="['/ventas']"> <i class="fa fa-money"></i>  Ventas </a></li>
+            <li routerLinkActive="active"><a [routerLink]="['/cuentas']"> <i class="fa fa-contao"></i> Cuentas </a></li>
+  </ul><span class="heading text-info">Menu Secundario</span>
+  <ul class="list-unstyled">
+    <li routerLinkActive="active"> <a [routerLink]="['/clientes']"> <i class="icon-user"></i> Clientes </a></li>
+    <li routerLinkActive="active"><a [routerLink]="['/vendedores']"> <i class="fa fa-users"></i> Vendedores </a></li>
+   
+  </ul>
+</nav>
+

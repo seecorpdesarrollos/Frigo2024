@@ -1,0 +1,79 @@
+
+<div class="card top container">
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-8">
+        <div class="row">
+          <div class="col-md-1"></div>
+          <div class="col-md-10">
+            <div class="alert alert-infos text-center login" role="alert">
+              <h2>Iniciar Sesión</h2>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+         <div class="card-body">
+       <form #login="ngForm" (ngSubmit)="ingresar(login)">
+          <div class="form-group">
+ <i class="fa fa-user fa-2x lo"> </i>
+           <label for="formGroupExampleInput" class="bmd-label-floating">Nombre de Usuario</label>
+
+           <input type="text" class="form-control" id="formGroupExampleInput" name="nombreAdmin" ngModel autocomplete="off">
+         </div>
+         <div class="form-group">
+           <i class="fa fa-unlock fa-2x lo"> </i>
+             <label for="exampleInputPassword1" class="bmd-label-floating">Password</label>
+            <input type="password" name="password" ngModel class="form-control" id="exampleInputPassword1" autocomplete="off">
+         </div>
+       <div class="row">
+       <div class="col-md-2"></div>
+       <div class="col-md-7" *ngIf="!loading">
+       <button *ngIf="intentos <= 3"
+       type="submit" class="btn btn-danger btn-block"><i class="fa fa-send"></i> Ingresar</button>
+
+       </div>
+       <div class="col-md-2"></div>
+       <div class="col-md-7 animated fadeIn" *ngIf="loading">
+        <h5> <img src="assets/img/cargando.gif"  alt="..." width="80"> Verificando Datos...</h5>
+       </div>
+       <div class="col-md-2"></div>
+       <div class="col-md-7 alert alert-danger animated fadeIn errorLogin" *ngIf="error">
+         <h5><i>{{ mostrarError }}</i></h5>
+       </div>
+   </div>
+ </form>
+         </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-danger text-center" id="exampleModalLongTitle">Intentos Fallido!!</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="card">
+           <div class="card-body">
+             <h5 class="text-success text-center">ha fallado mas de 3 veces</h5>
+             <hr class="hr">
+             <h5 class="text-success">Vuelva a cargar la página (F5) para poder continuar</h5>
+          </div>
+       </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>

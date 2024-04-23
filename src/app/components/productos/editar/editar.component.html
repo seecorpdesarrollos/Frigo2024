@@ -1,0 +1,90 @@
+<div class="row">
+  <div class="col-md-5"></div>
+  <div class="col-md-7">
+    <div class="spiner" *ngIf="loader == false">
+      <img src="assets/img/cargando.gif" alt="" width="120">
+    </div>
+  </div>
+</div>
+
+<form #forma="ngForm" (ngSubmit)="editarPro(forma)" *ngIf="loader">
+<div class="container to animated fadeIn">
+   <div class="row">
+      <div class="col-md-12">
+        <nav aria-label="breadcrumb">
+         <ol class="breadcrumb text-center">
+          <li class="breadcrumb-item active " aria-current="page"> <i class="fa fa-edit"></i> Editar Productos</li>
+         </ol>
+       </nav>
+      </div>
+     <div class="col-md-6 to">
+       <div class="input-group mb-3">
+        <div class="input-group-prepend">
+         <span class="input-group-text" id="basic-addon1"><i class="fa fa-edit"> </i> </span>
+        </div>
+        <input type="text" name="dueHacienda" [(ngModel)]="pro.dueHacienda" class="form-control" placeholder="Dueño Hacienda" aria-label="Username" aria-describedby="basic-addon1" required autocomplete="off">
+     </div>
+      <small>(dueño de hacienda)</small>
+     </div>
+     <div class="col-md-6 to">
+       <div class="input-group mb-3">
+        <div class="input-group-prepend">
+         <span class="input-group-text" id="basic-addon1"><i class="fa fa-edit"> </i> </span>
+        </div>
+        <input type="number" name="cantCabeza" [(ngModel)]="pro.cantCabeza" class="form-control" placeholder="Cantidad de Cabezas" aria-label="Username" aria-describedby="basic-addon1" required autocomplete="off">
+     </div>
+      <small>(cantidad de cabezas)</small>
+     </div>
+
+     <div class="col-md-6 to">
+       <div class="input-group mb-3">
+        <div class="input-group-prepend">
+         <span class="input-group-text" id="basic-addon1"><i class="fa fa-edit"> </i> </span>
+        </div>
+        <input type="number" name="cantMedia" [(ngModel)]="pro.cantMedia" class="form-control" placeholder="Cantidad de Medias" aria-label="Username" aria-describedby="basic-addon1" required autocomplete="off">
+     </div>
+      <small>(cantidad de medias )</small>
+     </div>
+     <div class="col-md-6 to">
+       <div class="input-group mb-3">
+        <div class="input-group-prepend">
+         <span class="input-group-text" id="basic-addon1"><i class="fa fa-edit"> </i> </span>
+        </div>
+        <input type="date" name="fechaFaena" [(ngModel)]="pro.fechaFaena" class="form-control" placeholder="Fecha de Faena" aria-label="Username" aria-describedby="basic-addon1" required autocomplete="off">
+     </div>
+      <small>(fecha faena)</small>
+     </div>
+ <br>
+     <div class="col-md-6 to">
+       <div class="input-group mb-3">
+        <div class="input-group-prepend">
+         <span class="input-group-text" id="basic-addon1"><i class="fa fa-edit"> </i> </span>
+        </div>
+        <input type="number" name="cantKilos" [(ngModel)]="pro.cantKilos" class="form-control" placeholder="Cantidad de Kilos" aria-label="Username" aria-describedby="basic-addon1" required autocomplete="off">
+     </div>
+      <small>(cantidad de kilos)</small>
+     </div>
+     <div class="col-md-6 to">
+       <div class="input-group mb-3">
+        <div class="input-group-prepend">
+         <span class="input-group-text" id="basic-addon1"><i class="fa fa-edit"> </i> </span>
+        </div>
+        <input type="text" name="nroTropa" [(ngModel)]="pro.nroTropa" class="form-control" placeholder="Número de Tropa" aria-label="Username" aria-describedby="basic-addon1" required autocomplete="off">
+     </div>
+      <small>(número de tropa)</small>
+     </div>
+      <div class="col-md-6 to" *ngIf="spinner == false">
+        <button [disabled]="forma.invalid"
+        type="submit" class="btn btn-success btn-block">Editar Producto</button>
+      </div>
+      <div class="col-md-6 to"  *ngIf="spinner == true">
+          <button 
+          type="submit" class="btn btn-success btn-block"><i class="fa fa-spinner fa-spin"></i> Editando ......</button>
+        </div>
+      <div class="col-md-6 to">
+        <button
+        type="submit" class="btn btn-primary btn-block" (click)="back()" >Salir sin editar</button>
+      </div>
+   </div>
+</div>
+</form>

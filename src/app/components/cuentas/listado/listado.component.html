@@ -1,0 +1,252 @@
+<div class="container to animated fadeIn">
+    <nav aria-label="breadcrumb to">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page"> <i class="fa fa-list"></i> Listados de Cuentas Corrientes por Clientes</li>
+        </ol>
+    </nav>
+
+    <hr>
+
+    <form #forma="ngForm" (ngSubmit)="cli(forma)" *ngIf="formu == false">
+        <div class="row">
+
+            <div class="col-md-3">
+                <input type="date" name="fechaInicial" ngModel class="form-control">
+            </div>
+            <div class="col-md-3">
+                <input type="date" name="fechaFinal" ngModel class="form-control">
+            </div>
+            <div class="col-md-6 to">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1"><i class="fa fa-search"> </i> </span>
+                    </div>
+                    <input (keypress)="dataToggle1()" type="text" name="nombreCliente" [(ngModel)]="nombreCliente" autocomplete="off" class="form-control" placeholder="Elija un Cliente" aria-label="Username" aria-describedby="basic-addon1" autocomplete="off">
+                    <input type="hidden" name="idCliente" [(ngModel)]="idCliente" autocomplete="off" class="form-control" placeholder="Elija un Cliente" aria-label="Username" aria-describedby="basic-addon1" autocomplete="off" required>
+                </div>
+
+                <div class="product" *ngIf="toggle1">
+                    <div class="alert alert-primary text-capitalize">
+                        <div (click)="selectCli(item)" class="data" *ngFor="let item of datas | dataFilter : nombreCliente">
+                            {{ item.nombreCliente }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" name="detalles" ngModel class="custom-control-input" id="customCheck1">
+                    <label class="custom-control-label text-info" for="customCheck1">Detalles de Facturas</label>
+                </div>
+            </div>
+            <div class="col-md-4 to">
+                <button [disabled]="forma.invalid" type="submit" class="btn btn-outline-success verifi">Aceptar</button>
+            </div>
+        </div>
+    </form>
+
+    <!-- comienza la tabla de las cuentas -->
+
+    <div class="to animated fadeIn card " *ngIf="ceroData">
+        <p class="text-center alert alert-danger">No se encontraron movimientos de cuenta en las fechas seleccionadas..</p>
+        <button type="button" (click)="salir()" class="btn btn-outline-success">Nuevas Busqueda</button>
+        <br><br>
+    </div>
+
+
+    <div class="" *ngIf="!ceroData">
+
+
+        <div class=" to  animated fadeIn" *ngIf="formu == true">
+            <div>
+                <button type="button" (click)="salir()" class="btn btn-outline-success">Nuevas Busqueda</button>
+                <br><br>
+                <div id="imprimir">
+                    <div class="card hiden" id="hiden">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h4>{{ todp }}</h4>
+
+                                </div>
+                                <div class="col-md-2"></div>
+                                <div class="col-md-4">
+                                    <img src="assets/img/logo.jpg" alt="" width="150">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="row" *ngIf="loader1 == false">
+                            <div class="col-md-5"></div>
+                            <div class="col-md-7">
+                                <div class="spiner">
+                                    <img src="assets/img/cargando.gif" alt="" width="120">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body border border-dark" *ngIf="loader1 == true">
+                            <h3 class="text-center to"><u>Resumen de Cuentas Corrientes</u></h3>
+                            <div class="row to">
+                                <div class="col-md-4">
+                                    <h5>Cliente: <span class="text-dark text-capitalize">{{ nombreCliente }} </span></h5>
+
+                                </div>
+                                <div class="col-md-4">
+                                    <h5>Saldo Inicial: <span class="text-dark"> ${{ saldoActual | number }}</span> </h5>
+
+                                </div>
+                                <div class="col-md-4">
+                                    <h5 class="border-primary border text-center  ">Saldo Actual: <span class="text-dark"> ${{ saldoFinal | number }}</span> </h5>
+
+                                </div>
+                            </div>
+                            <h5 *ngIf="fe == false">Fecha Contable: <span class="text-dark"> {{ fechaInicial | date: 'dd-MM-yyy' }} al {{ fechaFinal | date: 'dd-MM-yyy'}}</span> </h5>
+                            <h5>Saldo Anterior : <span class="text-dark">$ {{toSal | number}}</span> </h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class=" row" *ngIf="loader1 == true">
+                                <div class="col-md-10">
+
+                                    <table class="table table-bordered table-hover">
+                                        <thead class="bg-primary text-white ">
+                                            <tr>
+                                                <td scope="col">Fecha</td>
+                                                <td scope="col">Comprobante</td>
+                                                <td scope="col" class="text-lft">Debe</td>
+                                                <td scope="col" class="text-lft">Haber</td>
+                                                <!-- <td scope="col">Saldos</td> -->
+                                                <!-- <td scope="col">Cobrador</td> -->
+                                            </tr>
+                                        </thead>
+                                        <tbody *ngIf="sinData == false">
+
+                                            <tr *ngFor="let cli of tot">
+                                                <td>{{ cli.fecha | date: 'dd/MM/yyyy'}}</td>
+                                                <td> {{ cli.comprobante }} </td>
+                                                <td *ngIf="cli.entrada == 0 "> </td>
+                                                <td *ngIf="cli.entrada != 0 ">$ {{ cli.entrada | number}}</td>
+                                                <td *ngIf="cli.pagos == 0 "> </td>
+                                                <td *ngIf="cli.pagos != 0 ">$ {{ cli.pagos | number}}</td>
+                                                <!-- <td >$ {{ sal | number}}</td>  -->
+                                                <!-- <td>{{cli.nombreVendedor}}</td> -->
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-md-2 left">
+                                    <table class=" table table-bordered table-hover">
+                                        <thead class="bg-primary text-white ">
+                                            <tr>
+                                                <td class="">Saldo</td>
+                                            </tr>
+
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let sal of totSaldo">
+                                                <td class="">{{ sal + toSal| number}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <table class="table">
+                            <tr class="table-warning ">
+                                <td><strong>  &nbsp;&nbsp;  &nbsp;&nbsp;Movimientos Totales de Cuentas</strong></td>
+                                <td class="text-right"><strong>$ {{ totalCompras | number }}</strong></td>
+                                <td class="text-center"><strong>$ {{ totalPagos | number }}</strong></td>
+                                <!-- <td></td> -->
+                                <td class="text-center"><strong>$ {{ toSal + totalCompras- totalPagos | number }}</strong></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+
+                            <tr class="table-warning " *ngIf="sinData == true && loader1 == true">
+                                <td colspan="6"><strong>Sin movimientos en la de cuentas corriente en el rango de fechas seleccionadas</strong></td>
+                            </tr>
+                            <tr>
+                                <td class="text-center bg-danger text-white ">Fechas seleccionadas </td>
+                                <td class="text-center bg-danger text-white ">Saldo a pagar </td>
+                                <td class="text-center bg-danger text-white ">Total de kilos</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td class="text-center" *ngIf="fe ">Historial completos </td>
+                                <td class="text-center" *ngIf="!fe ">{{fechaInicial | date: 'dd-MM-yyy' }} al {{ fechaFinal | date: 'dd-MM-yyy'}} </td>
+                                <td class="text-center "> ${{toSal + totalCompras- totalPagos + saldoActual | number}}</td>
+                                <td class="text-center "> {{ totalKilos | number}} KG</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="row" *ngIf="fes && loader1 == true">
+                        <div class="col-md-3"></div>
+                        <div class="col-md-9">
+                            <h2 class="text-warning"> &nbsp;&nbsp; Detalles de las facturas</h2>
+
+                        </div>
+                        <div class="table-responsive col-md-12">
+
+                            <table class="table table-bordered table-sm table-hover tabla">
+                                <tr class="bg-dark">
+                                    <td class="text-white">Factura</td>
+                                    <td class="text-white">Fecha</td>
+                                    <td class="text-white">Descripción</td>
+                                    <td class="text-white">Kilo</td>
+                                    <td class="text-white">Precio</td>
+                                    <td class="text-white">Sub Total</td>
+                                    <td class="text-white">Total Factura</td>
+                                </tr>
+                                <tr *ngFor=" let detalle of det">
+                                    <td>{{detalle.nroFactura}}</td>
+                                    <td>{{detalle.fecha | date: 'dd/MM/yyyy'}}</td>
+                                    <td>{{detalle.descripcion}}</td>
+                                    <td>{{ detalle.kilo}}</td>
+                                    <td>{{detalle.precio}}</td>
+                                    <td>{{detalle.kilo * detalle.precio}}</td>
+                                    <td class="text-center text-danger" width="30">{{detalle.totalVenta}}</td>
+
+                                </tr>
+
+                            </table>
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+                <div class="table-responsive">
+
+                    <table class="table table-bordered" *ngIf="sinData == false && loader1 == true">
+                        <tr class="bg-info text-white">
+                            <td>Total Compras</td>
+                            <td>Total de Pagos</td>
+                            <td>Saldo compras/ pagos</td>
+                            <td>Saldo Inicial</td>
+                            <td>Saldo Final</td>
+                            <td>Variación del Saldo</td>
+                        </tr>
+                        <tr>
+                            <td> ${{ entrada | number}} </td>
+                            <td> ${{ pagos | number}}</td>
+                            <td> ${{ entrada - pagos | number}}</td>
+                            <td> ${{ saldoActual | number }}</td>
+                            <td> ${{ entrada - pagos + saldoActual | number}}</td>
+                            <td class="text-center text-danger"> ${{ entrada - pagos | number }}</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="row" *ngIf="sinData == false && loader1 == true">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-5">
+                        <!-- <button (click)="imprimirCuenta('imprimir')" class="btn btn-outline-danger">Imprimir</button> -->
+                        <button class="btn btn-outline-danger" (click)="downloadPdf('imprimir')"> <i class="fa fa-file-pdf-o" aria-hidden="true"></i>  Descargar PDF</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

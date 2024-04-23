@@ -1,0 +1,102 @@
+<div class="container tops animated fadeIn">
+  <nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item active" aria-current="page"> <i class="fa fa-list"></i> Reportes de Ventas</li>
+  </ol>
+</nav>
+<div class="row">
+  <div class="col-md-2"></div>
+  <div class="col-md-10">
+    
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" id="home-tab"  data-toggle="tab" [routerLink]="['reportesCli']" role="tab" aria-controls="home" aria-selected="true">Reportes por Clientes</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="profile-tab"  data-toggle="tab" [routerLink]="['reportesFechas']" role="tab" aria-controls="profile" aria-selected="false">Reportes por Fechas</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="contact-tab" data-toggle="tab" [routerLink]="['reportesTropas']" role="tab" aria-controls="contact" aria-selected="false">Reporte de tropas vendidas</a>
+      </li>
+    </ul>
+  </div>
+  <router-outlet></router-outlet>
+  
+</div>
+<hr>
+</div>
+<!-- 
+
+  <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+      <form #forma="ngForm" (ngSubmit)="consultarTropa(forma)" *ngIf="!tro">
+          <div class="row">
+            <div class="col-md-7 to" >
+              <div class="input-group">
+               <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1"><i class="fa fa-search"> </i> </span>
+               </div>
+               <input (keypress)="dataToggle2()" type="text" name="nroTropa" [(ngModel)]="nroTropa" autocomplete="off" class="form-control" placeholder="Elija una Tropa" aria-label="Username" aria-describedby="basic-addon1"  autocomplete="off">
+               <input  type="hidden" name="nroTropa" [(ngModel)]="nroTropa" autocomplete="off" class="form-control" placeholder="Eligir un Cliente" aria-label="Username" aria-describedby="basic-addon1"  autocomplete="off" required>
+            </div>
+
+            <div class="product" *ngIf="toggle2">
+                <div class="alert alert-primary">
+                 <div (click)="selectTropa(item)" class="data" *ngFor="let item of tropa | dataFilter : nroTropa">
+                   {{ item.nroTropa }}
+                 </div>
+                 </div>
+            </div>
+       </div>
+            <div class="col-md-3">
+              <button [disabled]="forma.invalid"
+              type="submit" class="btn btn-primary"> Consultar</button>
+            </div>
+          </div>
+         
+        </form>
+     
+        <div class="to" *ngIf="tro">
+          <h3 class="text-danger text-centar">Tropa:  {{ nroTropa }}</h3>
+          <table class="table table-bordered table-sm"
+          [mfData]="tTropa | dataFilter : filterQuery"
+          #mf="mfDataTable"
+          [mfRowsOnPage]="rowsOnPage" >  
+            <thead class="bg-primary">
+              <tr>
+                <th class="text-white" scope="col">Dueno Hacienda</th>
+                <th class="text-white" scope="col">Fecha</th>
+                <th class="text-white" scope="col">Cliente</th>
+                <th class="text-white" scope="col">Descripción</th>
+                <th class="text-white" scope="col">Nro. Factura</th>
+                <th class="text-white" scope="col">Precio</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let todo of tTropa">
+                <th scope="row">{{ todo.dueHacienda}}</th>
+                <th scope="row">{{ todo.fecha | date: 'dd/MM/yyyy'}}</th>
+                <td>{{ todo.nombreCliente}}</td>
+                <td>{{ todo.descripcion}}</td>
+                <td>{{ todo.nroFactura}}</td>
+                <td>{{ todo.precio}}</td>
+              </tr>
+              
+            </tbody>
+            <tfoot>
+                <td colspan="6">
+                  <mfBootstrapPaginator [rowsOnPageSet]="[10,25,100,200]"></mfBootstrapPaginator>
+                  <span class="alert alert-info"> Cantidad de medias vendidas:  {{ tTropa.length }}</span>
+                </td>
+              
+              </tfoot>
+          </table>
+        </div>
+          
+        </div>
+      </div>
+    </div>
+    
+    
+    
+    
+   -->

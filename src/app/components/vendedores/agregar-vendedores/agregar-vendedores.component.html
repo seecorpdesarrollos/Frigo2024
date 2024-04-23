@@ -1,0 +1,38 @@
+<form #forma="ngForm" (ngSubmit)="agregarVend(forma)">
+<div class="container to animated fadeIn">
+   <div class="row">
+      <div class="col-md-12">
+        <nav aria-label="breadcrumb">
+         <ol class="breadcrumb text-center">
+          <li class="breadcrumb-item active " aria-current="page">Agregar Vendedor</li>
+         </ol>
+       </nav>
+      </div>
+     <div class="col-md-6 to">
+       <div class="input-group mb-3">
+        <div class="input-group-prepend">
+         <span class="input-group-text" id="basic-addon1"><i class="fa fa-edit"> </i> </span>
+        </div>
+        <input type="text" name="nombreVendedor" ngModel class="form-control" placeholder="Nombre del Vendedor" aria-label="Username" aria-describedby="basic-addon1" required autocomplete="off">
+     </div>
+     </div>
+     <div class="col-md-6 to">
+       <div class="input-group mb-3">
+        <div class="input-group-prepend">
+         <span class="input-group-text" id="basic-addon1"><i class="fa fa-edit"> </i> </span>
+        </div>
+        <input type="number" name="telefonoVendedor" ngModel class="form-control" placeholder="Teléfono del Vendedor" aria-label="Username" aria-describedby="basic-addon1" required autocomplete="off">
+     </div>
+     </div>
+
+      <div class="col-md-12 to" *ngIf="!al">
+        <button [disabled]="forma.invalid"
+        type="submit" class="btn btn-primary btn-block btn-lg">Agregar Vendedor</button>
+      </div>
+      <div class="col-md-12 to" *ngIf="al">
+        <button [disabled]="forma.invalid"
+        type="submit" class="btn btn-primary btn-block btn-lg"><i class="fa fa-save fa-spin"></i> Guardando datos...</button>
+      </div>
+   </div>
+</div>
+</form>

@@ -1,0 +1,82 @@
+<form #forma="ngForm">
+    <div class="container to animated fadeIn">
+        <div class="row">
+            <div class="col-md-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb text-center">
+                        <li class="breadcrumb-item active " aria-current="page">Agregar Inventario</li>
+                    </ol>
+                </nav>
+            </div>
+            <div class="col-md-6 to">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1"><i class="fa fa-edit"> </i> </span>
+                    </div>
+                    <input type="number" name="kiloMedia" ngModel class="form-control" placeholder="Peso de la Media" aria-label="Username" aria-describedby="basic-addon1" required autocomplete="off">
+                </div>
+            </div>
+            <div class="col-md-6 to">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1"><i class="fa fa-search"> </i> </span>
+                    </div>
+                    <input (keyup)="dataToggle(valor)" #valor type="text" name="nroTropa" [(ngModel)]="nroTropa" autocomplete="off" class="form-control" placeholder="Elija una Tropa" aria-label="Username" aria-describedby="basic-addon1" autocomplete="off">
+                    <input type="hidden" name="nroTropa" [(ngModel)]="nroTropa" autocomplete="off" class="form-control" placeholder="Eligir un Cliente" aria-label="Username" aria-describedby="basic-addon1" autocomplete="off" required>
+                </div>
+
+                <div class="product" *ngIf="toggle">
+                    <div class="alert alert-primary">
+                        <div (click)="select(item)" class="data" *ngFor="let item of nroTropas">
+                            {{ item.nroTropa }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12 to" *ngIf="!loader ">
+                <button [disabled]="forma.invalid" (click)="comprobarInventario(forma)" type="submit" class="btn btn-primary btn-block btn-lg">Agregar Inventario</button>
+            </div>
+
+            <div class="col-md-12 to" *ngIf="loader">
+                <button type="submit" class="btn btn-primary btn-block btn-lg"><i class="fa fa-spinner fa-spin"></i> Guardando ......</button>
+            </div>
+
+            <div *ngIf="!comprobarInv">
+                <div class="col-md-12">
+                    <span class="alert alert-danger">El Nro. de tropa no exite. Consulte la tabla productos</span>
+                </div>
+            </div>
+            <br><br>
+            <div *ngIf="!comprobarInv">
+                <div class="col-md-12">
+                    <button class="btn btn-warning" (click)="reset()">Resetear</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="noMedias" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Tropa Nro. {{ nroTropa }}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+            </div>
+            <div class="modal-body">
+                <p class="alert alert-danger">Las medias para este Nro. Tropa ya estan completas</p>
+                <p class="alert alert-primary">Por favor revisar la sección de productos.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="reset()">Salir</button>
+
+            </div>
+        </div>
+    </div>
+</div>

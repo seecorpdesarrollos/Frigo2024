@@ -1,0 +1,30 @@
+<div class="page">
+
+  <app-cabezera></app-cabezera>
+  <div class="page-content d-flex align-items-stretch">
+
+ <app-menu></app-menu>
+
+   <div class="content-inner">
+
+         <header class="page-header">
+          <div class="container-fluid">
+            <h2 class="no-margin-bottom text-center">Cuentas Corrientes</h2>
+          </div>
+        </header>
+
+     <div class="container main">
+        <div class="fondo">
+          <!-- aqui va el contenido... -->
+          <nav class="nav nav-pills nav-fill">
+           <a class="nav-item nav-link" routerLinkActive="activo"  [routerLink]="['listadoCuentas']"><i class="fa fa-list"></i> Listado Cuentas</a>
+           <a class="nav-item nav-link" routerLinkActive="activo"  [routerLink]="['cobros']"><i class="fa fa-list"></i> Cobros Cuentas</a>
+           <!-- <a class="nav-item nav-link" routerLinkActive="activo"  [routerLink]="['pagos']" ><i class="fa fa-credit-card"></i> Generar Pagos</a> -->
+           <a class="nav-item nav-link" routerLinkActive="activo"  [routerLink]="['listadoSaldos']" ><i class="fa fa-plus-square"></i> Listado Saldos</a>
+          </nav>
+          <router-outlet></router-outlet>
+
+    <app-footer></app-footer>
+    </div>
+  </div>
+</div>

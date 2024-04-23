@@ -1,0 +1,235 @@
+<div class="row">
+    <div class="col-md-5"></div>
+    <div class="col-md-7">
+
+        <div class="spiner" *ngIf="loader == false">
+            <img src="assets/img/cargando.gif" alt="" width="120">
+        </div>
+    </div>
+</div>
+
+<div class="container to animated fadeIn" *ngIf="loader">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page"> <i class="fa fa-list"></i> Listado de Productos</li>
+        </ol>
+    </nav>
+    <div class="row">
+        <div class="col">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1"> <i class="fa fa-search"></i></span>
+                </div>
+                <input (keyup)="buscarF(factu)" #factu type="text" class="form-control" placeholder="Buscar por Fecha, Cliente  o Nro.Factura " [(ngModel)]="filterQuery" aria-label="Username" aria-describedby="basic-addon1">
+            </div>
+
+        </div>
+        <div class="col">
+            <div class="col-md-12">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1"><i class="fa fa-search"> </i> </span>
+                    </div>
+                    <input (keypress)="dataToggle1()" type="text" name="nombreCliente" [(ngModel)]="nombreCliente" autocomplete="off" class="form-control" placeholder="Elija un Cliente" aria-label="Username" aria-describedby="basic-addon1" autocomplete="off">
+                    <input type="hidden" name="idCliente" [(ngModel)]="idCliente" autocomplete="off" class="form-control" placeholder="Eligir un Cliente" aria-label="Username" aria-describedby="basic-addon1" autocomplete="off" required>
+                </div>
+
+                <div class="product" *ngIf="toggle1">
+                    <div class="alert alert-primary">
+                        <div (click)="selectCli(item)" class="data" *ngFor="let item of datas | dataFilter : nombreCliente">
+                            {{ item.nombreCliente }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-1 btn btn-danger" (click)="reset()">
+            <i class="fa fa-refresh"> </i>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <div class="card">
+            <div class="card-body">
+
+                <table class="table table-bordered table-sm">
+                    <thead class="bg-info">
+                        <tr>
+                            <th class="text-white" scope="col">Nro: Factura</th>
+                            <th class="text-white" scope="col">Fecha Venta</th>
+                            <th class="text-white" scope="col">Cliente</th>
+                            <th class="text-white" scope="col">Total</th>
+                            <th class="text-white text-center" scope="col">Descargar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of data">
+                            <td>{{ item.nroFactura | number}}</td>
+                            <td>{{ item.fecha | date: "dd/MM/yyyy"}}</td>
+                            <td>{{ item.nombreCliente | uppercase }}</td>
+                            <td>$ {{ item.totalVenta | number }}</td>
+                            <td class="text-center">
+                                <a (click)="facturar(item.nroFactura, item.nombreCliente, item.direccionCliente,item.telefonoCliente, item.fecha , item.totalVenta)" title="Imprimir Factura" class="btn btn-outline-success btn-sm"><i class="fa fa-download fa-1x  btn-outline-success"></i></a>
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+                <table class="table">
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <button type="button" class="btn btn-primary" (click)="mas()">Cargar mas facturas</button>
+                        </td>
+                    </tr>
+
+                </table>
+
+                <!-- <button type="button" data-toggle="modal" data-target=".listado" class="btn btn-warning" >Ver Listado</button> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<hr class="hr">
+
+<!-- Modal eliminar producto-->
+<div class="modal fade" id="factura" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog  modal-lg" role="document" id="mdialTamanio">
+        <div class="modal-content ">
+            <div class="modal-header">
+                <h5 class="modal-title text-danger text-center" id="exampleModalLongTitle"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+            </div>
+            <div class="modal-body" id="facturas" #facturas>
+                <hr>
+                <br>
+                <div class="row">
+                    <div class="col-md-4"></div>
+
+                    <br><br>
+                    <div class="col-md-4">
+                        <p></p>
+                        <h2> Nro.Factura : {{ factura }} </h2>
+                        <h4> Fecha : {{fecha | date: "dd/MM/yyyy" }} </h4>
+                    </div>
+                    <div class="col-md-6"></div>
+                </div>
+                <hr>
+                <br>
+                <table class="table table-hover table-striped table-sm">
+                    <tr>
+                        <td>
+                            <h3><u>Cliente: </u></h3>
+                            <br>
+                        </td>
+                        <td></td>
+                        <td>
+                            <h3>{{ nombreCliente | uppercase}}</h3>
+                            <br>
+                            <p class="display-5">Dirección: {{ direccionCliente | uppercase}}</p>
+                            <p class="display-5">Teléfono: {{ telefonoCliente | uppercase}}</p>
+                        </td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <tr>
+                                <td>
+                                    <h3><u>Detalle de la factura</u></h3>
+                                </td>
+                            </tr>
+
+                        </div>
+                    </div>
+                    <br><br><br>
+                    <tr class="text">
+
+                        <th>Descripción</th>
+                        <th></th>
+                        <th>Kilos</th>
+                        <th>Precio</th>
+                        <th>Sub Total</th>
+                    </tr>
+                    <tr class="text1" *ngFor="let datos of todoData">
+                        <td> {{ datos.descripcion}}</td>
+                        <td> </td>
+                        <td> {{ datos.kilo}}</td>
+                        <td> $ {{ datos.precio | number}}</td>
+                        <td> $ {{ datos.precio * datos.kilo | number}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+
+                    </tr>
+                    <tr>
+                        <th scope="row"></th>
+                        <td colspan="3">TOTAL</td>
+                        <td class="text1">$ {{ totalVenta | number }}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" (click)="inprimirFactura('facturas')">IMPRIMIR</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">SALIR</button>
+            </div>
+        </div>
+    </div>
+</div>

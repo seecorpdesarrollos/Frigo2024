@@ -1,0 +1,135 @@
+<div class="row">
+    <div class="col-md-5"></div>
+    <div class="col-md-7">
+      <div class="spiner" *ngIf="loader == false">
+        <img src="assets/img/cargando.gif" alt="" width="120">
+      </div>
+    </div>
+  </div>
+
+
+  <div class="container to animated fadeIn" *ngIf="loader == true" >
+      <nav aria-label="breadcrumb to">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page"> <i class="fa fa-list"></i> Listado de Saldos Pendientes</li>
+      </ol>
+      </nav>
+
+      <hr>
+      <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1"> <i class="fa fa-search"></i></span>
+          </div>
+          <input type="text" class="form-control" placeholder="Buscar Nombre "  [(ngModel)]="filterQuery" aria-label="Username" aria-describedby="basic-addon1">
+        </div>
+
+        <hr>
+
+  <div class="table-responsive">
+      <div class="card">
+       <div class="card-body">
+         <table class="table table-bordered table-sm"
+         >
+  <thead class="bg-info">
+  <tr>
+
+   <th class="text-white" scope="col"> Nombre del Cliente</th>
+   <th class="text-white" scope="col">Comprobante</th>
+   <th class="text-white" scope="col">Importe</th>
+   <th class="text-white" scope="col">Efectivo</th>
+   <th class="text-white" scope="col">Cheque</th>
+   <th class="text-white" scope="col">Nro Cheque</th>
+   <th class="text-white" scope="col">Banco</th>
+   <th class="text-white" scope="col">Fecha Pago</th>
+
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let item of data" >
+    <td>{{ item.nombreCliente }}</td>
+    <td>{{ item.comprobante }}</td>
+    <td>$ {{ item.monto | number }}</td>
+    <td>$ {{ item.efectivo | number }}</td>
+    <td>$ {{ item.cheque | number }}</td>
+    <td> {{ item.nroCheque  }}</td>
+    <td>{{ item.banco }}</td>
+    <td>{{ item.fechaPago | date: 'dd/MM/yyyy'}}</td>
+
+     <tr *ngIf="nada == false">
+       <td colspan="6" class="text-center" >
+         <h3>No hay saldos pendientes en estos momentos.</h3>
+       </td>
+     </tr>
+  </tbody>
+  <tfoot>
+    <td colspan="6" >
+      <mfBootstrapPaginator [rowsOnPageSet]="[2,3,5,10,25]"></mfBootstrapPaginator>
+      <span class="alert alert-info" *ngIf="nada"> Cantidad de Pagos  : {{ data.length}}</span>
+      <span class="alert alert-info"> Importe total cobrado : $ {{ total | number}}</span>
+    </td>
+
+  </tfoot>
+</table>
+        <div class="col-md-4">
+            <button type="reset"  data-toggle="modal" data-target=".imprimir"  class="btn btn-warning">Imprimir listado Completo</button>
+      </div>
+  </div>
+  </div>
+  </div>
+
+</div>
+
+
+
+  <!-- Modal de impresion -->
+
+
+  <div class="modal fade imprimir to" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content text-center">
+          <div id="imprimir">
+  
+            <div class="row">
+              <div class="col-md-4"></div>
+              <div class="col-md-4">
+                <div class="modal-header to">
+                  <h5 class="modal-title text-danger " id="exampleModalLabel">Listado de Pagos</h5>
+                </div>
+                <h6>   <span class="alert alert-info" *ngIf="nada"> Cantidad de Pagos  : {{ data.length}}</span>
+                  <span class="alert alert-info"> Importe total cobrado : $ {{ total | number}}</span></h6>
+              </div>
+            </div>
+
+            <table class="table table-bordered to">
+              <tr>
+                  <th class="text-dark" scope="col"> Nombre del Cliente</th>
+                  <th class="text-dark" scope="col">Comprobante</th>
+                  <th class="text-dark" scope="col">Importe</th>
+                  <th class="text-dark" scope="col">Efectivo</th>
+                  <th class="text-dark" scope="col">Cheque</th>
+                  <th class="text-dark" scope="col">Nro Cheque</th>
+                  <th class="text-dark" scope="col">Banco</th>
+                  <th class="text-dark" scope="col">Fecha Pago</th>
+                  <th class="text-dark" scope="col">Vendedor</th>
+                </tr>
+                <tr *ngFor=" let item of data">
+                    <td>{{ item.nombreCliente }}</td>
+                    <td>{{ item.comprobante }}</td>
+                    <td>$ {{ item.monto | number }}</td>
+                    <td>$ {{ item.efectivo | number }}</td>
+                    <td>$ {{ item.cheque | number }}</td>
+                    <td> {{ item.nroCheque  }}</td>
+                    <td>{{ item.banco }}</td>
+                    <td>{{ item.fechaPago | date: 'dd/MM/yyyy'}}</td>
+                    <td>{{ item.nombreVendedor}}</td>
+
+                </tr>
+              </table>
+            </div>
+              <div class="modal-footer">
+                <button type="button" (click)="print('imprimir')" class="btn btn-primary">IMPRIMIR</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">SALIR</button>
+              </div>
+            </div>
+          </div>
+        </div>

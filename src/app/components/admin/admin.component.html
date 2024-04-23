@@ -1,0 +1,196 @@
+
+    <div class="page">
+      
+      <app-cabezera></app-cabezera>
+      <div class="page-content d-flex align-items-stretch">
+        
+        <app-menu></app-menu>
+        
+        <div class="content-inner">
+          
+          <header class="page-header">
+            <div class="container-fluid">
+              <h2 class="no-margin-bottom text-center">Panel de Administrador</h2>
+            </div>
+          </header>
+          
+          
+          <div class="container main  to animated fadeIn">
+            <div class="fondo">
+              <!-- " *ngIf="loader"> -->
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item active " aria-current="page"> <i class="fa fa-list"></i> Listado de usuarios del sistema </li>
+                </ol>
+              </nav>
+              
+              <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-6">
+                  <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Agregar Usuarios</button>
+                </div>
+              </div>
+                          <div class="row">
+                            <div class="col-md-5"></div>
+                            <div class="col-md-7">
+                              <div class="spiner" *ngIf="loader == false">
+                                <img src="assets/img/cargando.gif" alt="" width="120">
+                              </div>
+                            </div>
+                          </div>
+               <div class="row to"  *ngIf="loader == true">
+                 <div class="col-md-12 table-responsive">
+                  <table class="table table-bordered table-hover table-sm">
+                    <thead class="bg-primary">
+                      <tr>
+                        <th class="text-white">Nombre </th>
+                        <th class="text-white">Contraseña</th>
+                        <th class="text-white">Rol</th>
+                        <th class="text-white">Fecha de Alta</th>
+                        <th class="text-white">Editar</th>
+                        <th class="text-white">Borrar</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let item of data">
+                        <th scope="row">{{item.nombreAdmin}}</th>
+                        <td>{{item.password}}</td>
+                        <td>{{item.rol}}</td>
+                        <td>{{item.fechaCreado | date: 'dd/MM/yyyy'}}</td>
+                        <td> <i class="fa fa-edit btn btn-outline-primary fa-2x" (click)="change(item.idAdmin, item.nombreAdmin)" ></i></td>
+                        <td> <i class="fa fa-trash btn btn-outline-danger fa-2x" (click)="borrar(item.idAdmin)" ></i></td>
+                      </tr>
+
+                    </tbody>
+                  </table>
+                 </div>
+              </div>
+              
+              <app-footer></app-footer>
+            </div>
+          </div>
+        </div>
+
+
+
+
+
+        <div class="modal" tabindex="-1" role="dialog" id="change">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header alert alert-primary">
+                <h5 class="modal-title">Usuario : {{ nombreAdmin }}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                  
+                      <form #formas="ngForm"  (ngSubmit)="cambiar(formas)">
+                        <div class="form-group">
+                          <label for="pass" class="bmd-label-floating">Contraseña</label>
+                          <input type="password" name="password" ngModel class="form-control" id="pass" required>
+                          <span class="bmd-help ">nunca revele su contraseña.</span>
+                        </div>
+                        <div class="form-group">
+                         <select name="rol" ngModel  class="form-control" required >
+                           <option value="" disabled>Elegir Rol</option>
+                           <option value="A">Administrador</option>
+                           <option value="U">Usuario</option>
+                         </select>
+                        </div>
+                        
+                        <button [disabled]="formas.invalid"
+                        type="submit" class="btn btn-primary btn-raised">Cambiar</button>
+                      </form>
+              </div>
+              <div class="modal-footer">
+                <!-- <button type="button" class="btn btn-primary">Aceptar cambios</button> -->
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Salir</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+        <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModa" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModa"><i class="fa fa-plus"></i> Agregar Usuario</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form #forma="ngForm"  (ngSubmit)="agregar(forma)">
+                <div class="form-group">
+                  <label for="nombreUsuario" class="bmd-label-floating">Nombre Usuario</label>
+                  <input type="text" name="nombreAdmin" ngModel class="form-control" id="nombreUsuario" required>
+                  <span class="bmd-help ">Aqui coloque su nombre de usuario.</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="password1" class="bmd-label-floating">Contraseña</label>
+                    <input type="password" name="password" ngModel class="form-control" id="password1" required>
+                    <span class="bmd-help ">nunca revele su contraseña.</span>
+                  </div>
+                <div class="form-group">
+                 <select name="rol" ngModel  class="form-control" required>
+                   <option value="" disabled>Rol</option>
+                   <option value="A">Administrador</option>
+                   <option value="U">Usuario</option>
+                 </select>
+                </div>
+                
+                <button [disabled]="forma.invalid"
+                type="submit" class="btn btn-primary btn-raised">Agregar</button>
+              </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
+          <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="modal" tabindex="-1" role="dialog" id="eliminar">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Eliminar usuario</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p class="alert alert-danger">Esta seguro de eliminar el usuario?.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="deleteAdmin(idAdmin)" >Si  borrar</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">No salir</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+        
+                      <!-- <form>
+                        <div class="form-group">
+                          <label for="exampleInputEmail1" class="bmd-label-floating">Email address</label>
+                          <input type="email" class="form-control" id="exampleInputEmail1">
+                          <span class="bmd-help">We'll never share your email with anyone else.</span>
+                        </div>
+                        <div class="form-group">
+                          <label for="exampleInputPassword1" class="bmd-label-floating">Password</label>
+                          <input type="password" class="form-control" id="exampleInputPassword1">
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-raised">Submit</button>
+                      </form> -->

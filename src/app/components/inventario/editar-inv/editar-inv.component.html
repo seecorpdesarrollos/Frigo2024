@@ -1,0 +1,83 @@
+<div class="row">
+  <div class="col-md-5"></div>
+  <div class="col-md-7">
+    <div class="spiner" *ngIf="loader == false">
+      <img src="assets/img/cargando.gif" alt="" width="120">
+    </div>
+  </div>
+</div>
+
+<form #forma="ngForm" (ngSubmit)="editarInv(forma)" *ngIf="loader == true">
+<div class="container to animated fadeIn">
+   <div class="row">
+      <div class="col-md-12">
+        <nav aria-label="breadcrumb">
+         <ol class="breadcrumb text-center">
+          <li class="breadcrumb-item active " aria-current="page">Editar Inventario</li>
+         </ol>
+       </nav>
+      </div>
+     <div class="col-md-6 to">
+       <div class="input-group mb-3">
+        <div class="input-group-prepend">
+         <span class="input-group-text" id="basic-addon1"><i class="fa fa-edit"> </i> </span>
+        </div>
+        <input type="number" name="kiloMedia" [(ngModel)]="inv.kiloMedia" class="form-control" placeholder="Peso de la Media" aria-label="Username" aria-describedby="basic-addon1" required autocomplete="off">
+     </div>
+     <small>(kilo de media)</small>
+     </div>
+     <div class="col-md-6 to">
+       <div class="input-group mb-3">
+        <div class="input-group-prepend">
+         <span class="input-group-text" id="basic-addon1"><i class="fa fa-edit"> </i> </span>
+        </div>
+        <input type="number" (keyup)="comprobarInventario(forma)" name="nroTropa" [(ngModel)]="inv.nroTropa" class="form-control" placeholder="Número de tropa" aria-label="Username" aria-describedby="basic-addon1" required autocomplete="off">
+     </div>
+     <small>(número de tropa)</small>
+     </div>
+
+      <div class="col-md-6 to" *ngIf="!cambio && comprobarInv">
+        <button [disabled]="forma.invalid"
+        type="submit" class="btn btn-primary btn-block btn-lg">Editar Inventario</button>
+      </div>
+
+      <div class="col-md-6 to" *ngIf="cambio">
+          <button 
+          type="submit" class="btn btn-primary btn-block btn-lg"><i class="fa fa-spinner fa-spin"></i> Guardando ......</button>
+        </div>
+      <div class="col-md-6 to" *ngIf="!cambio && comprobarInv">
+        <button (click)="back()"
+        type="submit" class="btn btn-success btn-block btn-lg">Salir sin editar </button>
+      </div>
+      <div  *ngIf="!comprobarInv">
+        <div class="col-md-12">
+          <span class="alert alert-danger">El Nro. de tropa no exite. Consulte la tabla productos</span>
+       </div>
+     </div>
+     <br><br>
+ <div *ngIf="!comprobarInv">
+   <div class="col-md-12">
+     <span class="alert alert-info">Modifique el Nro. de tropa de las media res y has click en cualquier parte de la pantalla.</span>
+   </div>
+ </div>
+   </div>
+</div>
+</form>
+
+
+<!-- Modal -->
+<div class="modal fade" id="noCantidad" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Media Vendida </h5>
+      </div>
+      <div class="modal-body">
+        <p class="alert alert-danger">La media ya fue vendida, por lo tanto no se puede editar.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" (click)="back()" data-dismiss="modal" class="btn btn-primary">Volver</button>
+      </div>
+    </div>
+  </div>
+</div>

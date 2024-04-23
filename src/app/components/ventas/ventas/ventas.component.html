@@ -1,0 +1,218 @@
+<div class="row to">
+    <div class="col-md-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active" aria-current="page"><i class="fa fa-usd"></i> Realizar Venta</li>
+            </ol>
+        </nav>
+    </div>
+    <!-- legir cliete y productos  -->
+    <div class="col-md-5">
+        <div class="card">
+            <p class="alert alert-info"><i class="fa fa-edit"></i> Datos Fectura</p>
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link" [ngClass]="{'activo': flag==true}" (click)="media()" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Media Res</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [ngClass]="{'activo': flag1== true}" (click)="cuarteo()" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Cuarteos</a>
+                </li>
+            </ul>
+            <form #forma="ngForm" (ngSubmit)="temp(forma)" *ngIf="flag == true">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12  to">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1"><i class="fa fa-search"> </i> </span>
+                                </div>
+                                <input (keyup)="dataToggle(valor)" #valor type="number" name="kiloMedia" [(ngModel)]="kiloMedia" autocomplete="off" class="form-control" placeholder="Peso de la Media" aria-label="Username" aria-describedby="basic-addon1" autocomplete="off">
+                            </div>
+                            <div class="product" *ngIf="toggle">
+                                <div class="alert alert-info">
+                                    <div (click)="select(item)" class="data" *ngFor="let item of data ">
+                                        {{ item.kiloMedia }} - {{item.nroTropa }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <input type="hidden" name="idInventario" [(ngModel)]="idInventario" value="">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-6 to">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1"><i class="fa fa-usd"> </i> </span>
+                                </div>
+                                <input type="number" class="form-control" id="inputPassword" name="precio" ngModel autocomplete="off" placeholder="Precio Media" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4"></div>
+                        <div class="col-md-7" *ngIf="!cambio">
+                            <button [disabled]="forma.invalid" type="submit" class="btn btn-info">Aceptar</button>
+                        </div>
+                        <div class="col-md-7" *ngIf="cambio">
+                            <button type="submit" class="btn btn-info"><i class="fa fa-spinner fa-spin"></i> Guardando...</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <!--Cuarteo=============================================================  -->
+            <form #forma="ngForm" (ngSubmit)="temp1(forma)" *ngIf="flag1 == true">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 to">
+                            <select class="custom-select" name="cuartos" ngModel>
+                             <option value="" disabled >Elegir  Cuarteo</option>
+                              <option *ngFor="let item of datos"  [ngValue]="item.pecho  + '/' + item.idCuarteo + '/' + 'pecho' ">{{ item.pecho}}K : Pecho</option>
+                              <option *ngFor="let item of datos"  [ngValue]="item.mocho  + '/' + item.idCuarteo + '/' + 'mocho' ">{{ item.mocho}}K : Mocho</option>
+                              <option *ngFor="let item of datos"  [ngValue]="item.parrillero  + '/' + item.idCuarteo + '/' + 'parrillero' ">{{ item.parrillero}}K : Parrillero</option>
+                              <option *ngFor="let item of datos"  [ngValue]="item.completos  + '/' + item.idCuarteo + '/' + 'completos' ">{{ item.completos}}K : Completos</option>
+                              <option *ngFor="let item of datos"  [ngValue]="item.largos  + '/' + item.idCuarteo + '/' + 'largos' ">{{ item.largos}}K : Largos</option>
+                              <option *ngFor="let item of datos"  [ngValue]="item.bifes  + '/' + item.idCuarteo + '/' + 'bifes' ">{{ item.bifes}}K : Bife</option>
+                              <option *ngFor="let item of datos"  [ngValue]="item.asado  + '/' + item.idCuarteo + '/' + 'asado' ">{{ item.asado }}K : Asado</option>
+                            </select>
+                        </div>
+
+
+                        <div class="col-md-6 to">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1"><i class="fa fa-usd"> </i> </span>
+                                </div>
+                                <input type="number" class="form-control" id="inputPassword" name="precio" ngModel autocomplete="off" placeholder="Precio Cuarteo" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4"></div>
+                        <div class="col-md-6" *ngIf="!cambio1">
+                            <button [disabled]="forma.invalid" type="submit" class="btn btn-info">Aceptar</button>
+                        </div>
+
+                        <div class="col-md-6" *ngIf="cambio1">
+                            <button class="btn btn-info"><i class="fa fa-spinner fa-spin"></i> Guardando...</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!--detalle de Factura  -->
+    <div class="col-md-7">
+        <div class="card">
+            <p class="alert alert-info"><i class="fa fa-edit"></i> Detalle Fectura</p>
+            <div class="card-body" class="animated fadeIn">
+                <div id="impresion">
+
+
+                    <table class="table table-striped table-hover table-sm">
+                        <thead class="bg-dark text-white">
+                            <tr>
+                                <td>Descripción</td>
+                                <td>Peso</td>
+                                <td>N° Tropa</td>
+                                <td>Precio</td>
+                                <td>Sub Total</td>
+                                <td>Eliminar</td>
+                            </tr>
+                        </thead>
+                        <tr *ngFor="let temp of temporal" class="animated fadeIn">
+                            <td>{{ temp.descripcion }}</td>
+                            <td>{{ temp.kiloMedia}}</td>
+                            <td>{{ temp.nroTropa }}</td>
+                            <td>{{ temp.precioMedia | number }}</td>
+                            <td>${{temp.precioMedia * temp.kiloMedia | number }}</td>
+                            <td class="text-center" *ngIf="borra"><i class="fa fa-spinner fa-spin btn-sm"></i> Borrando..</td>
+                            <td class="text-center" *ngIf="!borra"><a (click)="borrarItem(temp.idTemp, temp.descripcion,temp.kiloMedia, temp.id )"><i class="fa fa-trash-o  btn-outline-danger btn-sm"></i></a></td>
+                        </tr>
+
+
+                        <tr *ngFor="let temp1 of temporal1" class="animated fadeIn">
+                            <td>{{ temp1.descripcionMedia }}</td>
+                            <td>{{ temp1.kilo}}</td>
+                            <td>{{ temp1.nroTropa }}</td>
+                            <td>{{ temp1.precio | number}}</td>
+                            <td>${{temp1.precio * temp1.kilo | number}}</td>
+                            <td class="text-center" *ngIf="!borr"><a (click)="borrarItem1( temp1.idInventario )"><i class="fa fa-trash-o  btn-outline-danger btn-sm"></i></a></td>
+                            <td class="text-center" *ngIf="borr"><i class="fa fa-spinner fa-spin btn-sm"></i> Borrando..</td>
+                        </tr>
+
+                        <tr class="animated fadeIn">
+                            <td></td>
+                            <td colspan="3">Total</td>
+                            <td>${{ totales + totales1 | number}}</td>
+
+                        </tr>
+                    </table>
+                </div>
+
+                <form #forma="ngForm">
+                    <div class="row">
+                        <div class="col-md-6 to">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1"><i class="fa fa-search"> </i> </span>
+                                </div>
+                                <input (keypress)="dataToggle1()" type="text" name="nombreCliente" [(ngModel)]="nombreCliente" autocomplete="off" class="form-control" placeholder="Elija un Cliente" aria-label="Username" aria-describedby="basic-addon1" autocomplete="off">
+                                <input type="hidden" name="idCliente" [(ngModel)]="idCliente" autocomplete="off" class="form-control" placeholder="Eligir un Cliente" aria-label="Username" aria-describedby="basic-addon1" autocomplete="off" required>
+                            </div>
+
+                            <div class="product" *ngIf="toggle1">
+                                <div class="alert alert-primary">
+                                    <div (click)="selectCli(item)" class="data" *ngFor="let item of datas | dataFilter : nombreCliente">
+                                        {{ item.nombreCliente }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1"><i class="fa fa-calendar"> </i> </span>
+                                </div>
+                                <input type="date" class="form-control" id="inputPassword" name="fechaVenta" ngModel required>
+                            </div>
+                        </div>
+                        <div class="col-md-4"></div>
+                        <div class="col-md-3">
+                            <button [disabled]="forma.invalid" *ngIf="!boton" type="submit" class="btn btn-primary" (click)="vender(forma ,nombreCliente)">$ Vender</button>
+                            <button *ngIf="boton" class="btn btn-info"><i class="fa fa-spinner fa-spin"></i> Generando factura...</button>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-5">
+                            <p class="alert alert-danger"> Factura Nro: {{ this.fac[0].total | number}}</p>
+                        </div>
+                        <input type="hidden" name="fac" [(ngModel)]="fac" value="" required>
+                        <input type="hidden" name="su" [(ngModel)]="su" value="" required>
+                    </div>
+
+                    <!-- confirmar el cliente -->
+
+                    <div class="modal" tabindex="-1" role="dialog" id="confirm">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Confirmar el Cliente: <span class="text-danger">{{ nombreCliente | uppercase}}</span></h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                           <span aria-hidden="true">&times;</span>
+                                         </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p class="alert alert-info ">Esta seguro de venderle al cliente . {{ nombreCliente }}</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" *ngIf="boton" (click)="si(forma)" data-dismiss="modal">Si Confirmar</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

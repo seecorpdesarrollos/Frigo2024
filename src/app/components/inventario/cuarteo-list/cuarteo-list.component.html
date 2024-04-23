@@ -1,0 +1,278 @@
+<div class="row">
+    <div class="col-md-5"></div>
+    <div class="col-md-7">
+        <div class="spiner" *ngIf="loader == false">
+            <img src="assets/img/cargando.gif" alt="" width="120">
+        </div>
+    </div>
+</div>
+<div class="row" *ngIf="loader == true">
+    <div class="col-md-12">
+        <div class="container to animated fadeIn" *ngIf="loader">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item active" aria-current="page"> <i class="fa fa-list"></i> Listado de Cuarteos</li>
+                </ol>
+            </nav>
+            <form #action="ngForm" (ngSubmit)="buscarMedia(action)">
+                <div class="row">
+                    <div class="col tops1">
+
+                        <input autocomplete="off" required name="medida" type="text" class="form-control" placeholder="Buscar Tropa o Kilos " [(ngModel)]="filterQuery" aria-label="Username" aria-describedby="basic-addon1">
+                    </div>
+                    <div class="col">
+                        {{select}}
+                        <select class="custom-select" name="tipo" ngModel required>
+                      
+                      <option value="1">Kilos</option>
+                      <option value="2">Tropa</option>
+                    </select>
+                    </div>
+                    <div class="col tops1">
+                        <button class="btn btn-warning" [disabled]="action.invalid">Buscar</button>
+                    </div>
+                </div>
+            </form>
+
+            <hr>
+            <div class="table-responsive">
+                <div class="card">
+                    <div class="card-body">
+                        <table class="table table-bordered table-sm">
+                            <thead class="bg-info">
+                                <tr>
+
+                                    <th class="text-white" scope="col"> Kilos Media</th>
+                                    <th class="text-white" scope="col">Nro.Tropa</th>
+                                    <!-- <th class="text-white" scope="col">Fecha Faena</th> -->
+                                    <th class="text-white" scope="col">Estado</th>
+                                    <!-- <th class="text-white" scope="col">Restantes</th> -->
+                                    <th class="text-white text-center" scope="col">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of data">
+                                    <!-- <td>{{ item.dueHacienda }}</td>
+  <td>{{ item.cantCabeza }}</td>
+  <td>{{ item.cantMedia }}</td> -->
+                                    <td>{{ item.kiloMedia }}</td>
+                                    <td>{{ item.nroTropa }}</td>
+                                    <!-- <td>{{ item.fechaFaena | date: "dd/MM/yyyy"}}</td> -->
+                                    <td *ngIf=" item.estadoCuarteo == 0 " class="text-danger">Inventario Agregado</td>
+                                    <td *ngIf=" item.estadoCuarteo == 1 " class="text-success">Agregar Inventario</td>
+                                    <td class="text-center">
+                                        <a data-toggle="modal" data-target=".mediaTropa" title="Agregar Cuarteo" class="btn btn-outline-success btn-sm" (click)="addCuarteo(item.idCuarteo, item.kiloMedia, item.estadoCuarteo)"><i class="fa fa-plus fa-1x  btn-outline-success"></i></a>
+                                        <a title="Eliminar Cuarteo" class="btn btn-outline-danger btn-sm" (click)="eliminar(item.idInventario, item.estadoCuarteo)"><i class="fa fa-trash fa-1x  btn-outline-danger"></i></a>
+                                        <!-- <span  class="btn btn-outline-danger btn-sm" title="Eliminar Producto" data-toggle="modal" data-backdrop="true" (click)="borrarCat(item.idProductos)"><i class="fa fa-trash fa-1x  btn-outline-danger"></i></span> -->
+                                    </td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+
+                        <table class="table">
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <button type="button" class="btn btn-primary" (click)="mas()">Cargar mas hacienda</button>
+                                </td>
+                            </tr>
+                            <td colspan="6">
+                                <span class="alert alert-info"> Cantidad de Medias: {{ data.length }}</span>
+                                <span class="alert alert-info"> Medias para Vender: {{ totalMedia }}</span>
+                                <span class="alert alert-info">Kilos disponibles: {{ total }}</span>
+                                <span class="alert alert-info"> Kilos Totales: {{ totales }}</span>
+                            </td>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <hr class="hr">
+    </div>
+</div>
+
+
+
+<!-- Modal Elimimar -->
+<div class="modal fade" id="eliminarCuarteo" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-danger" id="exampleModalLongTitle">Eliminar Producto cod: {{idInventario }}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+            </div>
+            <div class="modal-body">
+                <p class="alert alert-info">Desea eliminar el cuarteo?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" (click)="borrarCuarteo(idInventario)" data-dismiss="modal">SI</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">NO</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal Agregar Cuarteo -->
+
+
+<div class="modal fade bd-example-modal-lg" id="cuarteo" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <h5 class="modal-title text-danger" id="exampleModalLongTitle"><i class="fa fa-edit"></i> Agregar Inventario al Cuarteo <small class="text-info"> Media de : {{kiloMedia}}</small> </h5>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+            </div>
+            <form #forma="ngForm" (ngSubmit)="agregarCuarteo(forma)">
+
+                <hr class="hr">
+                <div class="row">
+                    <div class="col-md-6 to">
+                        <div class="form-group mb-3">
+                            <div class="input-group-prepend">
+
+                            </div>
+                            <label for="exampleInputEmail1">Agregar Pecho</label>
+
+                            <input type="number" name="pecho" [(ngModel)]="pecho" class="form-control" autocomplete="off" placeholder="Agregar Pecho">
+                        </div>
+                    </div>
+                    <div class="col-md-6 to">
+                        <div class="form-group mb-3">
+                            <div class="input-group-prepend">
+
+                            </div>
+                            <label for="exampleInputEmail1">Agregar Mocho</label>
+
+                            <input type="number" name="mocho" [(ngModel)]="mocho" class="form-control" autocomplete="off" placeholder="Agregar Mocho">
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 to">
+                        <div class="form-group mb-3">
+                            <div class="input-group-prepend">
+
+                            </div>
+                            <label for="exampleInputEmail1">Agregar Parrillero</label>
+
+                            <input type="number" name="parrillero" [(ngModel)]="parrillero" class="form-control" autocomplete="off" placeholder="Agregar Parrillero">
+                        </div>
+                    </div>
+                    <div class="col-md-6 to">
+                        <div class="form-group ">
+                            <div class="input-group-prepend">
+
+                            </div>
+                            <label for="exampleInputEmail1">Agregar Completos</label>
+                            <input type="number" name="completos" [(ngModel)]="completos" class="form-control" autocomplete="off" placeholder="Agregar Completos">
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 to">
+                        <div class="form-group mb-3">
+                            <div class="input-group-prepend">
+
+                            </div>
+                            <label for="exampleInputEmail1">Agregar Largos</label>
+
+                            <input type="number" name="largos" [(ngModel)]="largos" class="form-control" autocomplete="off" placeholder="Agregar Largos">
+                        </div>
+                    </div>
+                    <div class="col-md-6 to">
+                        <div class="form-group mb-3">
+                            <div class="input-group-prepend">
+
+                            </div>
+                            <label for="exampleInputEmail1">Agregar Bifes</label>
+
+                            <input type="number" name="bifes" [(ngModel)]="bifes" class="form-control" autocomplete="off" placeholder="Agregar Bifes">
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 to">
+                        <div class="form-group mb-3">
+                            <div class="input-group-prepend">
+
+                            </div>
+                            <label for="exampleInputEmail1">Agregar Asado</label>
+
+                            <input type="number" name="asado" [(ngModel)]="asado" class="form-control" autocomplete="off" placeholder="Agregar Asado">
+                        </div>
+                    </div>
+                    <div class="col-md-6 to">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                            </div>
+                            <button *ngIf="!cambio" type="submit" class="btn btn-primary btn-block"> Agregar</button>
+                            <button *ngIf="cambio" type="submit" class="btn btn-primary btn-block"> <i class="fa fa-spinner fa-spin"> </i> Guardando ....</button>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="cuarteos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Error!!!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+            </div>
+            <div class="modal-body">
+                <p class="alert alert-warning"> Esta media ya posse un inventario..</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="cuarteos1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Error!!!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+            </div>
+            <div class="modal-body">
+                <p class="alert alert-warning"> No puede eliminar esta media porque tiene inventario. Elimine primero el inventario y luego el cuarteo.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+
+            </div>
+        </div>
+    </div>
+</div>

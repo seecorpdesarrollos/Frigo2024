@@ -1,0 +1,81 @@
+<div class="tops">
+    <form #forma="ngForm" (ngSubmit)="consultarTropa(forma)" *ngIf="!tro">
+        <div class="row">
+          <div class="col-md-12 to" >
+            <div class="input-group">
+             <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1"><i class="fa fa-search"> </i> </span>
+             </div>
+             <input (keypress)="dataToggle2()" type="text" name="nroTropa" [(ngModel)]="nroTropa" autocomplete="off" class="form-control" placeholder="Elija una Tropa" aria-label="Username" aria-describedby="basic-addon1"  autocomplete="off">
+             <input  type="hidden" name="nroTropa" [(ngModel)]="nroTropa" autocomplete="off" class="form-control" placeholder="Eligir un Cliente" aria-label="Username" aria-describedby="basic-addon1"  autocomplete="off" required>
+          </div>
+
+          <div class="product" *ngIf="toggle2">
+              <div class="alert alert-primary">
+               <div (click)="selectTropa(item)" class="data" *ngFor="let item of tropa | dataFilter : nroTropa">
+                 {{ item.nroTropa }}
+               </div>
+               </div>
+          </div>
+     </div>
+          <div class="col-md-3"></div>
+              <div class="col-md-3" *ngIf="!cambio" >
+            <button [disabled]="forma.invalid"
+            type="submit" class="btn btn-primary"> Consultar</button>
+          </div>
+          <div class="col-md-3" *ngIf="cambio" >
+           <button 
+              type="button" class="btn btn-primary"> <i class="fa fa-spinner fa-spin"></i> Buscando ....</button>
+            </div>
+        </div>
+       
+      </form>
+   
+      <div class="to" *ngIf="tro">
+        <h3 class="text-danger text-centar">Tropa:  {{ nroTropa }}</h3>
+        <table class="table table-bordered table-sm"
+       >  
+          <thead class="bg-primary">
+            <tr>
+              <th class="text-white" scope="col">Dueno Hacienda</th>
+              <th class="text-white" scope="col">Fecha</th>
+              <th class="text-white" scope="col">Cliente</th>
+              <th class="text-white" scope="col">Descripción</th>
+              <th class="text-white" scope="col">Nro. Factura</th>
+              <th class="text-white" scope="col">Precio</th>
+              <th class="text-white" scope="col">Kilos</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="nada == false">
+            <tr *ngFor="let todo of tTropa">
+              <th scope="row">{{ todo.dueHacienda}}</th>
+              <th scope="row">{{ todo.fecha | date: 'dd/MM/yyyy'}}</th>
+              <td>{{ todo.nombreCliente}}</td>
+              <td>{{ todo.descripcion}}</td>
+              <td>{{ todo.nroFactura}}</td>
+              <td>{{ todo.precio}}</td>
+              <td>{{ todo.kilo}}</td>
+            </tr>
+            
+          </tbody >
+         
+            <tr *ngIf="nada">
+              <td colspan="6"> No hay datos para este Nro. de tropa</td>
+            </tr>
+          
+          <tfoot *ngIf="nada == false">
+              <td colspan="6">
+                <mfBootstrapPaginator [rowsOnPageSet]="[10,25,100,200]"></mfBootstrapPaginator>
+                <span class="alert alert-info"> Cantidad de medias vendidas:  {{ tTropa.length }}</span>
+              </td>
+            
+            </tfoot>
+        </table>
+
+        <div class="col-md-4">
+            <button type="reset"  (click)="nueva()"  class="btn btn-warning">Nueva Consulta</button>
+          </div>
+      </div>
+        
+  </div>
+   

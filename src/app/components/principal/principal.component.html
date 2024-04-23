@@ -1,0 +1,93 @@
+<div class="page ">
+    <!-- Main Navbar-->
+    <app-cabezera></app-cabezera>
+    <div class="page-content d-flex align-items-stretch">
+        <!-- Side Navbar -->
+        <app-menu></app-menu>
+        <!--fin menu  -->
+        <div class="content-inner">
+            <!-- Page Header-->
+            <header class="page-header">
+                <div class="container-fluid">
+                    <h2 class="no-margin-bottom text-center">Principal</h2>
+                </div>
+            </header>
+
+            <section class="dashboard-counts no-padding-bottom animated fadeIn">
+                <div class="container-fluid">
+                    <div class="row bg-white has-shadow">
+                        <div class="col-md-12">
+
+                            <div class="row">
+                                <div class="col-md-5"></div>
+                                <div class="col-md-7">
+                                    <div class="spiner" *ngIf="loader == false">
+                                        <img src="assets/img/cargando.gif" alt="" width="120">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card" *ngIf="loader == true">
+                                <div class="card-header bg-primary text-white text-center">
+                                    Estadistica de existencias por Tropas
+                                </div>
+                                <hr class="hr">
+
+                                <div class="input-group col-md-6 mx-auto">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1"> <i class="fa fa-search"></i></span>
+                                    </div>
+                                    <input (keyup.enter)="buscarT(tropa)" #tropa type="text" class="form-control" name="tr" [(ngModel)]="nrotropa" placeholder="Buscar por número de tropa " aria-label="Username" aria-describedby="basic-addon1">
+                                    <div class="input-group-prepend">
+                                        <button class="btn btn-outline-primary" (click)="buscarT(tropa)">Buscar</button>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <hr class="hr">
+                                    <div class="row">
+                                        <div class="col-md-12">
+
+
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <td>Nro Tropa</td>
+                                                        <td>Dueño de hacienda</td>
+                                                        <td>Fecha Faena</td>
+                                                        <td>Cant Medias Disponibles</td>
+                                                        <td>Kilos Disponibles</td>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let item of data">
+                                                        <td class="text-center">{{item.nroTropa}}</td>
+                                                        <td class="text-center">{{item.dueHacienda}}</td>
+                                                        <td class="text-center">{{item.fechaFaena | date: 'd-MM-yyyy'}}</td>
+                                                        <td class="text-center">{{item.cantMedia | number}} Unidades</td>
+                                                        <td class="text-center">{{item.cantKilos | number}} KG</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <hr>
+                                            <!-- <div class="col-md-3" *ngIf="cambio">
+                                                        <button (click)="nueva()"
+                                                        type="button" class="btn btn-primary">Nueva Consultar</button>
+                                                      </div> -->
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- Page Footer-->
+            <app-footer></app-footer>
+        </div>
+    </div>
+</div>
+<!-- JavaScript files-->

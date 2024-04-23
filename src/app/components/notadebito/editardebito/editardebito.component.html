@@ -1,0 +1,78 @@
+<form #forma="ngForm" (ngSubmit)="agregarDeb(forma)">
+  <div class="container  animated fadeIn">
+     <div class="row">
+        <div class="col-md-12">
+          <nav aria-label="breadcrumb">
+           <ol class="breadcrumb text-center">
+            <li class="breadcrumb-item active " aria-current="page">Agregar Notas de Débito sin cheque</li>
+           </ol>
+         </nav>
+        </div>
+       <div class="col-md-6 to">
+         <div class="input-group mb-3">
+          <div class="input-group-prepend">
+           <span class="input-group-text" id="basic-addon1"><i class="fa fa-edit"> </i> </span>
+          </div>
+          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="descripcionDebito" ngModel placeholder="descripcion detallada de la nota de débito"></textarea>
+        </div>
+      </div>
+      <div class="col-md-6 to">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1"><i class="fa fa-edit"> </i> </span>
+          </div>
+          <input type="text" name="cantidadDebito" (keyup)="totalesCredito(forma)" ngModel class="form-control" placeholder="Cantidad" aria-label="Username" aria-describedby="basic-addon1" required autocomplete="off">
+       </div>
+       </div>
+
+       <div class="col-md-6 to">
+        <div class="input-group mb-3">
+         <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1"><i class="fa fa-edit"> </i> </span>
+         </div>
+         <input type="text" name="importeDebito" (keyup)="totalesCredito(forma)" ngModel class="form-control" placeholder="Importe Débito" aria-label="Username" aria-describedby="basic-addon1" required autocomplete="off">
+       </div>
+     </div>
+       <div class="col-md-6 to" >
+          <div class="input-group">
+           <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1"><i class="fa fa-search"> </i> </span>
+           </div>
+           <input (keypress)="dataToggle1()" type="text" name="nombreCliente" [(ngModel)]="nombreCliente" autocomplete="off" class="form-control" placeholder="Elija un Cliente" aria-label="Username" aria-describedby="basic-addon1"  autocomplete="off">
+           <input  type="hidden" name="idCliente" [(ngModel)]="idCliente" autocomplete="off" class="form-control" placeholder="Eligir un Cliente" aria-label="Username" aria-describedby="basic-addon1"  autocomplete="off" required>
+        </div>
+
+        <div class="product" *ngIf="toggle1">
+            <div class="alert alert-primary">
+             <div (click)="select(item)" class="data" *ngFor="let item of datas | dataFilter : nombreCliente">
+               {{ item.nombreCliente }}
+             </div>
+             </div>
+        </div>
+       </div>
+   <br>
+   <div class="col-md-6 to">
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1"><i class="fa fa-edit"> </i> </span>
+        </div>
+        <input type="date" name="fechaDebito" ngModel class="form-control"  aria-label="Username" aria-describedby="basic-addon1" required autocomplete="off">
+     </div>
+     </div>
+ 
+        <div class="col-md-6 to" *ngIf="!cambio" >
+          <button [disabled]="forma.invalid"
+          type="submit" class="btn btn-primary btn-block btn-lg">Agregar Nota</button>
+        </div>
+        <div class="col-md-5 alert alert-danger" *ngIf="mostrarTotal" >
+            Total del Crédito  $ {{ totalCredito }}
+       
+           </div>
+        <div class="col-md-6 to" *ngIf="cambio" >
+          <button 
+          type="button" class="btn btn-primary btn-block btn-lg"><i class="fa fa-spinner fa-spin"></i> Guardando ......</button>
+        </div>
+     </div>
+  </div>
+  </form>
+  

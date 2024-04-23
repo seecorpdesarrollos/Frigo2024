@@ -1,0 +1,101 @@
+<div class="row">
+  <div class="col-md-5"></div>
+  <div class="col-md-7">
+    <div class="spiner" *ngIf="loader == false">
+      <img src="assets/img/cargando.gif" alt="" width="120">
+    </div>
+  </div>
+</div>
+<div class="row"  *ngIf="loader == true">
+  <div class="col-md-12">
+<div class="container to animated fadeIn" *ngIf="loader">
+  <nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item active text-danger" aria-current="page"> <i class="fa fa-list"></i> Listado de Vendedores Inactivos</li>
+  </ol>
+</nav>
+<div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="basic-addon1"> <i class="fa fa-search"></i></span>
+  </div>
+  <input type="text" class="form-control" placeholder="Buscar Nombre "  [(ngModel)]="filterQuery" aria-label="Username" aria-describedby="basic-addon1">
+</div>
+  <div class="table-responsive">
+    <div class="card">
+     <div class="card-body">
+       <table class="table table-bordered table-sm"
+       >
+<thead class="bg-info">
+<tr>
+
+ <th class="text-white" scope="col"> Nombre del Vendedor</th>
+ <th class="text-white" scope="col">Telefono del Vendedor</th>
+ <th class="text-white" scope="col">Estado</th>
+ <!-- <th class="text-white" scope="col">Cantidad</th> -->
+ <!-- <th class="text-white" scope="col">Restantes</th> -->
+ <th class="text-white text-center" scope="col">Acciones</th>
+</tr>
+</thead>
+<tbody>
+<tr *ngFor="let item of data">
+  <!-- <td>{{ item.dueHacienda }}</td>
+  <td>{{ item.cantCabeza }}</td>
+  <td>{{ item.cantMedia }}</td> -->
+  <td>{{ item.nombreVendedor }}</td>
+  <td>{{ item.telefonoVendedor }}</td>
+  <td [class]="['text-danger']">Inactivo </td>
+  <!-- <td>{{ Activo }}</td> -->
+  <!-- <td>{{ item.cantMedia - item.cantidad  }}</td> -->
+   <td class="text-center">
+    <span  class="btn btn-outline-danger btn-sm" title="Alta de  Vendedor" data-toggle="modal" (click)="altaVendedor(item.idVendedor, item.nombreVendedor)"><i class="fa fa-list fa-1x  btn-outline-warning"></i></span>
+   </td>
+</tr>
+<tr *ngIf="!nada">
+  <td colspan="6" class="text-center" >
+    <h3>No hay ningun vendedor activo en estos momentos.</h3>
+  </td>
+</tr>
+</tbody>
+<tfoot>
+  <td colspan="6" *ngIf="nada">
+    <mfBootstrapPaginator [rowsOnPageSet]="[2,3,5,10,25]"></mfBootstrapPaginator>
+    <span class="alert alert-info"> Cantidad de vendedores inactivos: {{ data.length}}</span>
+    <!-- <span class="alert alert-info"> Cantidad de Kilos: {{ total }}</span> -->
+  </td>
+</tfoot>
+</table>
+<button type="button" class="btn btn-warning" routerLink="../listadoVen">Vendedores activos</button>
+
+    </div>
+   </div>
+  </div>
+</div>
+
+
+<hr class="hr">
+</div>
+</div>
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="vendedor" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-danger" id="exampleModalLongTitle">Alta al Vendedor : <cite>{{nombre }}</cite></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p class="alert alert-info">Desea dar de alta al vendedor?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="alta(id)" data-dismiss="modal">SI</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">NO</button>
+      </div>
+    </div>
+  </div>
+</div>

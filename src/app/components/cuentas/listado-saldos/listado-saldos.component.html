@@ -1,0 +1,170 @@
+<div class="row">
+    <div class="col-md-5"></div>
+    <div class="col-md-7">
+        <div class="spiner" *ngIf="loader == false">
+            <img src="assets/img/cargando.gif" alt="" width="120">
+        </div>
+    </div>
+</div>
+
+
+<div class="container to animated fadeIn" *ngIf="loader == true">
+    <nav aria-label="breadcrumb to">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page"> <i class="fa fa-list"></i> Listado de Saldos Pendientes</li>
+        </ol>
+    </nav>
+
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1"> <i class="fa fa-search"></i></span>
+        </div>
+        <input type="text" class="form-control" placeholder="Buscar Nombre " [(ngModel)]="filterQuery" aria-label="Username" aria-describedby="basic-addon1">
+    </div>
+
+    <hr>
+
+
+    <div class="table-responsive">
+        <div class="card">
+            <div class="card-body">
+                <table class="table table-bordered table-sm" >
+                    <thead class="bg-info">
+                        <tr>
+
+                            <th class="text-white" scope="col"> Nombre del Cliente</th>
+                            <th class="text-white" scope="col">Saldo Inicial</th>
+                            <th class="text-white" scope="col">Saldo Actual</th>
+                            <th class="text-white" scope="col">Fecha del Saldo</th>
+
+                            <th class="text-white text-center" scope="col">Imprimir</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of data">
+                            <td>{{ item.nombreCliente }}</td>
+                            <td>$ {{ item.saldoInicial | number }}</td>
+                            <td>$ {{ item.saldoActual | number }}</td>
+                            <td>{{ item.fechaSaldo | date: 'dd/MM/yyyy'}}</td>
+
+                            <td class="text-center">
+                                <a title="Imprimir Saldo del cliente" class="btn btn-outline-primary btn-sm" (click)="imprimirIndividual(item.nombreCliente, item.nombreVendedor ,item.saldoActual, item.fechaSaldo)"><i class="fa fa-print fa-1x  btn-outline-primary"></i></a>
+
+                            </td>
+                        </tr>
+                        <tr *ngIf="nada == false">
+                            <td colspan="6" class="text-center">
+                                <h3>No hay saldos pendientes en estos momentos.</h3>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <td colspan="6">
+                            <mfBootstrapPaginator [rowsOnPageSet]="[2,3,5,10,25]"></mfBootstrapPaginator>
+                            <span class="alert alert-info" *ngIf="nada"> Cantidad de clientes con saldos : {{ data.length}}</span>
+                            <span class="alert alert-info"> Cantidad de Saldos: $ {{ total  | number }}</span>
+                        </td>
+
+                    </tfoot>
+                </table>
+
+
+                <div class="row" *ngIf="nada">
+                    <div class="col-md-5"></div>
+                    <div class="col-md-4">
+                        <button type="reset" data-toggle="modal" data-target=".imprimir" class="btn btn-warning">Imprimir listado Completo</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+<!-- Modal de impresion -->
+
+
+<div class="modal fade imprimir to" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content text-center">
+            <div id="imprimir">
+
+                <div class="row">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4">
+                        <div class="modal-header to">
+                            <h5 class="modal-title text-danger " id="exampleModalLabel">Listado de Saldos</h5>
+
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-bordered to">
+                    <tr>
+                        <th>Nombre del Cliente</th>
+                        <th>Teléfono del Cliente</th>
+                        <th>Saldo Actual</th>
+                        <th>Fecha del Saldo</th>
+                        <!-- <th>Nombre del Vendedor</th> -->
+                    </tr>
+                    <tr *ngFor=" let cli of data">
+                        <td>{{ cli.nombreCliente }}</td>
+                        <td>{{ cli.telefonoCliente }}</td>
+                        <td>{{ cli.saldoActual | number }}</td>
+                        <td>{{ cli.fechaSaldo | date: 'dd/MM/yyyy' }}</td>
+                        <!-- <td>{{ cli.nombreVendedor }}</td> -->
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" (click)="print('imprimir')" class="btn btn-primary">IMPRIMIR</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">SALIR</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Modal individual -->
+
+
+<div class="modal fade" id="individual" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg " role="document">
+        <div class="modal-content ">
+            <div id="imprimir1">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="modal-header  alert alert-dark ">
+                            <h5 class="modal-title text-danger text-center" id="exampleModalLabel"> Saldo del Cliente: <span class="text-muted">{{cli | uppercase}}</span></h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-bordered to">
+                        <tr>
+                            <th>Nombre del Cliente</th>
+                            <th>Nombre del Vendedor</th>
+                            <th>Saldo Actual</th>
+                            <th>Fecha del Saldo</th>
+                        </tr>
+                        <tr>
+                            <td>{{ cli }}</td>
+                            <td>{{ vendedor }}</td>
+                            <td>$ {{ saldo | number }}</td>
+                            <td>{{ fecha | date: 'dd/MM/yyyy' }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="print1('imprimir1')">IMPRIMIR</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">SALIR</button>
+            </div>
+        </div>
+    </div>
+</div>

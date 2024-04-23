@@ -1,0 +1,82 @@
+<form #forma="ngForm" (ngSubmit)="agregarPro(forma)">
+<div class="container to animated fadeIn">
+   <div class="row">
+      <div class="col-md-12">
+        <nav aria-label="breadcrumb">
+         <ol class="breadcrumb text-center">
+          <li class="breadcrumb-item active " aria-current="page">Agregar Productos</li>
+         </ol>
+       </nav>
+      </div>
+     <div class="col-md-6 to">
+       <div class="input-group mb-3">
+        <div class="input-group-prepend">
+         <span class="input-group-text" id="basic-addon1"><i class="fa fa-edit"> </i> </span>
+        </div>
+        <input type="text" name="dueHacienda" ngModel class="form-control" placeholder="Dueño Hacienda" aria-label="Username" aria-describedby="basic-addon1" required autocomplete="off">
+     </div>
+     </div>
+     <div class="col-md-6 to">
+       <div class="input-group mb-3">
+        <div class="input-group-prepend">
+         <span class="input-group-text" id="basic-addon1"><i class="fa fa-edit"> </i> </span>
+        </div>
+        <input type="number" min="0" name="cantCabeza" ngModel class="form-control" placeholder="Cantidad de Cabezas" aria-label="Username" aria-describedby="basic-addon1" required autocomplete="off">
+     </div>
+     </div>
+
+     <div class="col-md-6 to">
+       <div class="input-group mb-3">
+        <div class="input-group-prepend">
+         <span class="input-group-text" id="basic-addon1"><i class="fa fa-edit"> </i> </span>
+        </div>
+        <input type="number" min="0" name="cantMedia" ngModel class="form-control" placeholder="Cantidad de Medias" aria-label="Username" aria-describedby="basic-addon1" required autocomplete="off">
+     </div>
+     </div>
+     <div class="col-md-6 to">
+       <div class="input-group mb-3">
+        <div class="input-group-prepend">
+         <span class="input-group-text" id="basic-addon1"><i class="fa fa-edit"> </i> </span>
+        </div>
+        <input type="date" name="fechaFaena" ngModel class="form-control" placeholder="Fecha de Faena" aria-label="Username" aria-describedby="basic-addon1" required autocomplete="off">
+     </div>
+     </div>
+ <br>
+     <div class="col-md-6 to">
+       <div class="input-group mb-3">
+        <div class="input-group-prepend">
+         <span class="input-group-text" id="basic-addon1"><i class="fa fa-edit"> </i> </span>
+        </div>
+        <input type="number" min="0"  name="cantKilos" ngModel class="form-control" placeholder="Cantidad de Kilos" aria-label="Username" aria-describedby="basic-addon1" required autocomplete="off">
+     </div>
+     </div>
+     <div class="col-md-6 to">
+       <div class="input-group mb-3">
+        <div class="input-group-prepend">
+         <span class="input-group-text" id="basic-addon1"><i class="fa fa-edit"> </i> </span>
+        </div>
+        <input type="text" (keyup)="comprobarInventario(forma)" name="nroTropa" ngModel class="form-control" placeholder="Número de Tropa" aria-label="Username" aria-describedby="basic-addon1" required autocomplete="off">
+     </div>
+     </div>
+      <div class="col-md-12 to" *ngIf="spiner== false && comprobarInv==true">
+        <button [disabled]="forma.invalid"
+        type="submit" class="btn btn-primary btn-block btn-lg">Agregar Producto</button>
+      </div>
+      <div class="col-md-12 to" *ngIf="spiner== true && comprobarInv == true">
+          <button 
+          type="submit" class="btn btn-primary btn-block btn-lg"><i class="fa fa-spinner fa-spin"></i> Guardando.....</button>
+        </div>
+        <div  *ngIf="!comprobarInv">
+          <div class="col-md-12">
+            <span class="alert alert-danger">El Nro. de tropa no exite. Consulte la tabla productos</span>
+         </div>
+       </div>
+       <br><br>
+   <div *ngIf="!comprobarInv">
+     <div class="col-md-12">
+       <span class="alert alert-info">Modifique el Nro. de tropa de las media res y has click en cualquier parte de la pantalla.</span>
+     </div>
+   </div>
+   </div>
+</div>
+</form>

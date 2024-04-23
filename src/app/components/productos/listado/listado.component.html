@@ -1,0 +1,148 @@
+<div class="row">
+    <div class="col-md-5"></div>
+    <div class="col-md-7">
+
+        <div class="spiner" *ngIf="loader == false">
+            <img src="assets/img/cargando.gif" alt="" width="120">
+        </div>
+    </div>
+</div>
+
+<div class="container to animated fadeIn" *ngIf="loader == true">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page"> <i class="fa fa-list"></i> Listado de Productos</li>
+        </ol>
+    </nav>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1"> <i class="fa fa-search"></i></span>
+        </div>
+        <input (keyup.enter)="buscarT(tropa)" #tropa type="text" class="form-control" name="tr" [(ngModel)]="nrotropa" placeholder="Buscar por número de tropa " aria-label="Username" aria-describedby="basic-addon1">
+        <div class="input-group-prepend">
+            <button class="btn btn-outline-primary" (click)="buscarT(tropa)">Buscar</button>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <div class="card">
+            <div class="card-body">
+
+                <table class="table table-bordered table-sm">
+                    <thead class="bg-info">
+                        <tr>
+                            <th class="text-white" scope="col">Dueño Hacienda</th>
+                            <th class="text-white" scope="col">C.Cabezas</th>
+                            <th class="text-white" scope="col">C.Medias</th>
+                            <th class="text-white" scope="col">Nro.Tropa</th>
+                            <th class="text-white" scope="col">Fecha Faena</th>
+                            <th class="text-white" scope="col">C. Kilos</th>
+                            <th class="text-white text-center" scope="col">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of data">
+                            <td>{{ item.dueHacienda | uppercase}}</td>
+                            <td>{{ item.cantCabeza | number }}</td>
+                            <td>{{ item.cantMedia | number }}</td>
+                            <td>{{ item.nroTropa }}</td>
+                            <td>{{ item.fechaFaena | date: "dd/MM/yyyy"}}</td>
+                            <td>{{ item.cantKilos | number }}</td>
+                            <td class="text-center">
+                                <a title="Editar Producto" class="btn btn-outline-primary btn-sm" routerLink="../editarPro/{{item.idProductos}}"><i class="fa fa-edit fa-1x  btn-outline-primary"></i></a>
+                                <span class="btn btn-outline-danger btn-sm" title="Eliminar Producto" data-toggle="modal" data-backdrop="true" (click)="borrarCat(item.idProductos)"><i class="fa fa-trash fa-1x  btn-outline-danger"></i></span>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+                <table class="table">
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+
+                        <td colspan="7">
+                            <button type="button" class="btn btn-primary" (click)="mas()">Cargar mas hacienda</button>
+                        </td>
+
+                    </tr>
+                </table>
+
+                <button type="button" data-toggle="modal" data-target=".listado" class="btn btn-warning">Ver Listado</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<hr class="hr">
+
+<!-- Modal eliminar producto-->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-danger" id="exampleModalLongTitle">Eliminar Producto cod: {{idPro }}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+            </div>
+            <div class="modal-body">
+                <p class="alert alert-info">Desea eliminar el producto?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" (click)="eliminar()" data-dismiss="modal">SI</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">NO</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--Modal listado completo  -->
+
+<div class="modal fade listado" tabindex="-1" data-backdrop="false" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div id="impresion">
+                <br>
+                <div class="modal-header">
+                    <h3 class="modal-title text-center" id="exampleModalLabel">Listado de Tropas:</h3>
+                </div>
+                <table class="table table-bordered table-sm">
+                    <thead class="bg-info">
+                        <tr>
+                            <th class="text-white" scope="col">Dueño Hacienda</th>
+                            <th class="text-white" scope="col">C.Cabezas</th>
+                            <th class="text-white" scope="col">C.Medias</th>
+                            <th class="text-white" scope="col">Nro.Tropa</th>
+                            <th class="text-white" scope="col">Fecha Faena</th>
+                            <th class="text-white" scope="col">C. Kilos</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of data">
+                            <td>{{ item.dueHacienda | uppercase}}</td>
+                            <td>{{ item.cantCabeza | number }}</td>
+                            <td>{{ item.cantMedia | number }}</td>
+                            <td>{{ item.nroTropa }}</td>
+                            <td>{{ item.fechaFaena | date: "dd/MM/yyyy"}}</td>
+                            <td>{{ item.cantKilos | number }}</td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+            </div>
+            <div class="modal-footer">
+                <!-- (click)="inprimirTropa('impresion')" -->
+                <button type="button" class="btn btn-primary" (click)="inprimirTropa('impresion')">IMPRIMIR</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Salir</button>
+            </div>
+        </div>
+    </div>
+</div>

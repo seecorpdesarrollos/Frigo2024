@@ -1,0 +1,26 @@
+<div class="row tops" *ngIf="!dato">
+  <div class="col">
+    <div class="card text-center">
+  <h5 class="card-header text-success">Exitos!!</h5>
+  <div class="card-body">
+    <h5 class="card-title">Producto Modificado!</h5>
+    <p class="card-text text-info">El producto ha sido <strong>modificado</strong> correctamente en la base de datos.</p>
+    <button (click)="back()" class="btn btn-danger">Volver</button>
+  </div>
+</div>
+  </div>
+</div>
+
+
+<div class="row tops" *ngIf="dato">
+  <div class="col">
+    <div class="card text-center">
+  <h5 class="card-header text-success">Exitos!!</h5>
+  <div class="card-body">
+    <h5 class="card-title">Producto Eliminado!</h5>
+    <p class="card-text text-info">El producto ha sido <strong>eliminado</strong> correctamente en la base de datos.</p>
+    <button (click)="back()" class="btn btn-danger">Volver</button>
+  </div>
+</div>
+  </div>
+</div>

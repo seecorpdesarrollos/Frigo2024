@@ -1,0 +1,93 @@
+<header class="header" *ngIf="cabezera == true">
+  <nav class="navbar">
+    <!-- Search Box-->
+    <div class="search-box">
+      <button class="dismiss"><i class="icon-close"></i></button>
+      <form id="searchForm" action="#" role="search">
+        <input type="search" placeholder="What are you looking for..." class="form-control">
+      </form>
+    </div>
+    <div class="container-fluid">
+      <div class="navbar-holder d-flex align-items-center justify-content-between">
+        <!-- Navbar Header-->
+        <div class="navbar-header">
+          <!-- Navbar Brand --><a [routerLink]="['/admin']" class="navbar-brand">
+            <div  class="brand-text brand-big"><span>Panel:  </span><strong> Administrador</strong></div>
+            <div  class="brand-text brand-small"><strong [routerLink]="['/admin']">PA</strong></div></a>
+          <!-- Toggle Button--><a id="toggle-btn" (click)="panel()" class="menu-btn active"><span></span><span></span><span></span></a>
+        </div>
+        <!-- Navbar Menu -->
+        <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
+          <!-- Search-->
+          <li class="nav-item d-flex align-items-center"><a id="search" href="#"><i class="icon-search"></i></a></li>
+
+          <!-- Logout    -->
+          <li class="nav-item"><a href="#" data-toggle="modal" data-target="#salir" class="nav-link logout">Cerrar Sesión  <i class="fas fa-sign-out-alt"></i></a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+
+
+
+<!-- cabezera para no administradores -->
+<header class="header" *ngIf="cabezera == false">
+    <nav class="navbar">
+      <!-- Search Box-->
+      <div class="search-box">
+        <button class="dismiss"><i class="icon-close"></i></button>
+        <form id="searchForm" action="#" role="search">
+          <input type="search" placeholder="What are you looking for..." class="form-control">
+        </form>
+      </div>
+      <div class="container-fluid">
+        <div class="navbar-holder d-flex align-items-center justify-content-between">
+          <!-- Navbar Header-->
+          <div class="navbar-header">
+            <!-- Navbar Brand --><a  class="navbar-brand">
+              <div  class="brand-text brand-big"><span> </span><strong> Los Magnates </strong></div>
+              <div  class="brand-text brand-small"><strong >LM</strong></div></a>
+            <!-- Toggle Button--><a id="toggle-btn" (click)="panel()" class="menu-btn active"><span></span><span></span><span></span></a>
+          </div>
+          <!-- Navbar Menu -->
+          <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
+            <!-- Search-->
+            <li class="nav-item d-flex align-items-center"><a id="search" href="#"><i class="icon-search"></i></a></li>
+  
+            <!-- Logout    -->
+            <li class="nav-item"><a href="#" data-toggle="modal" data-target="#salir" class="nav-link logout">Cerrar Sesión  <i class="fas fa-sign-out-alt"></i></a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+  
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="salir" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-center text-info" id="exampleModalLabel">Cerrar Sesión</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="alert alert-danger" role="alert">
+                Desea salir de la aplicacíon?
+           </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-info" data-dismiss="modal" (click)=salir()>SI</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    

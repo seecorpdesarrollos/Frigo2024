@@ -1,0 +1,121 @@
+<div class="row">
+    <div class="col-md-5"></div>
+    <div class="col-md-7">
+        <div class="spiner" *ngIf="loader == false">
+            <img src="assets/img/cargando.gif" alt="" width="120">
+        </div>
+    </div>
+</div>
+
+
+<div *ngIf="loader == true">
+    <nav aria-label="breadcrumb to">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page"><i class="fa fa-list"></i> Notas de Crédito </li>
+        </ol>
+    </nav>
+    <div class="row">
+
+        <div class="input-group mb-3 col-md-6 to">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1"><i class="fa fa-search"> </i> </span>
+            </div>
+            <input (keypress)="dataToggle1()" type="text" name="nombreCliente" [(ngModel)]="nombreCliente" autocomplete="off" class="form-control" placeholder="Elija un Cliente" aria-label="Username" aria-describedby="basic-addon1" autocomplete="off">
+            <input type="hidden" name="idCliente" [(ngModel)]="idCliente" autocomplete="off" class="form-control" placeholder="Eligir un Cliente" aria-label="Username" aria-describedby="basic-addon1" autocomplete="off" required>
+
+            <div class="product to" *ngIf="toggle1">
+                <div class="alert alert-primary">
+                    <div (click)="selectCli(item)" class="data" *ngFor="let item of datas | dataFilter : nombreCliente">
+                        {{ item.nombreCliente }}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-1 btn btn-danger" (click)="reset()">
+            <i class="fa fa-refresh"> </i>
+        </div>
+    </div>
+    <div class="table-responsive to">
+        <table class="table table-bordered table-hover table-sm">
+            <thead class="bg-primary ">
+                <tr>
+
+                    <th class="text-white">Fecha</th>
+                    <th class="text-white">Cliente</th>
+                    <th class="text-white">Descripción</th>
+                    <th class="text-white">Cantidad</th>
+                    <th class="text-white">Importe</th>
+                    <th class="text-white">Total</th>
+                    <!-- <th class="text-white">Acciones</th> -->
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of data">
+                    <td>{{ item.fechaCredito | date: 'dd/MM/yyyy' }}</td>
+                    <td>{{ item.nombreCliente }}</td>
+                    <td>{{ item.descripcionCredito }}</td>
+                    <td>$ {{ item.cantidadCredito }}</td>
+                    <td>$ {{ item.importeCredito }}</td>
+                    <td>$ {{ item.totalCredito }}</td>
+                    <!-- <td class="text-center"> -->
+                    <!-- <a  title="Editar Nota de Credito" class="btn btn-outline-primary btn-sm" [routerLink]="['../editarCredito',item.idNotaCredito,item.idCliente,item.nombreCliente,item.descripcionCredito,item.cantidadCredito,item.importeCredito,item.totalCredito]"><i class="fa fa-edit fa-1x  btn-outline-primary"></i></a> -->
+                    <!-- <span  class="btn btn-outline-danger btn-sm" title="Eliminar Vendedor" 
+                (click)="eliminar(item.idNotaCredito , item.idCliente, item.totalCredito)"><i class="fa fa-trash fa-1x  btn-outline-danger"></i></span>
+             </td> -->
+                </tr>
+                <tr *ngIf="!nada">
+                    <td colspan="6" class="text-center">
+                        <h3>No hay ninguna nota de crédito en estos momentos.</h3>
+                    </td>
+                </tr>
+            </tbody>
+            <!-- <tfoot>
+            <td colspan="6">
+              <mfBootstrapPaginator [rowsOnPageSet]="[2,3,5,10,25]"></mfBootstrapPaginator>
+              
+            </td>
+            
+          </tfoot> 
+        -->
+        </table>
+
+        <table class="table">
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                    <button type="button" class="btn btn-primary" (click)="mas()">Cargar mas notas de créditos</button>
+                </td>
+                <!-- <span class="alert alert-info" *ngIf="nada"> Cantidad de notas de créditos : {{ data.length}}</span> -->
+            </tr>
+            <td colspan="6">
+
+            </td>
+        </table>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="eliminar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title alert alert-danger" id="exampleModalLabel">Eliminar nota de créditos</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
+                <button type="button" class="btn btn-primary" (click)="eliminarNotaCredito()">SI   ELIMINAR</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,129 @@
+<div class="container to animated fadeIn">
+    <nav aria-label="breadcrumb to">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item active" aria-current="page"> <i class="fa fa-list"></i> Cobros de Cuentas Corrientes</li>
+    </ol>
+    </nav>
+   
+    <hr>
+     <form #formas="ngForm" (ngSubmit)="cobro(formas)">
+        <div class="row">
+         <div class="col-md-6 to">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                 <span class="input-group-text" id="basic-addon1"><i class="fa fa-edit"> </i> </span>
+                </div>
+                <input type="text" name="comprobante" required ngModel class="form-control" placeholder="Comprobante" aria-label="Username"  aria-describedby="basic-addon1"  autocomplete="off">
+             </div>
+         </div>
+         <div class="col-md-6 to">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                 <span class="input-group-text" id="basic-addon1"><i class="fa fa-edit"> </i> </span>
+                </div>
+                <input type="number" name="monto" required ngModel class="form-control" placeholder="Importe del Pago"  aria-label="Username" aria-describedby="basic-addon1"  autocomplete="off">
+             </div>
+         </div>
+         <div class="col-md-6 to">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                 <span class="input-group-text" id="basic-addon1"><i class="fa fa-edit"> </i> </span>
+                </div>
+                <input type="number" name="efectivo" ngModel class="form-control" placeholder="Monto en Efectivo" aria-label="Username" aria-describedby="basic-addon1"  autocomplete="off">
+             </div>
+         </div>
+         <div class="col-md-6 to">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                 <span class="input-group-text" id="basic-addon1"><i class="fa fa-edit"> </i> </span>
+                </div>
+                <input type="number" name="cheque" ngModel class="form-control" placeholder="Pago en Cheque" aria-label="Username" aria-describedby="basic-addon1"  autocomplete="off">
+             </div>
+         </div>
+         <div class="col-md-6 to">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                 <span class="input-group-text" id="basic-addon1"><i class="fa fa-edit"> </i> </span>
+                </div>
+                <input type="number" name="nroCheque" ngModel class="form-control" placeholder="Número del cheque" aria-label="Username" aria-describedby="basic-addon1"  autocomplete="off">
+             </div>
+         </div>
+         <div class="col-md-6 to">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                 <span class="input-group-text" id="basic-addon1"><i class="fa fa-edit"> </i> </span>
+                </div>
+                <input type="text" name="banco" ngModel class="form-control" placeholder="Nombre del Banco" aria-label="Username" aria-describedby="basic-addon1"  autocomplete="off">
+              </div>
+            </div>
+            <div class="col-md-6 to">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1"><i class="fa fa-edit"> </i> </span>
+                </div>
+                <input type="text" name="propietario" ngModel class="form-control" placeholder="Propietario del Cheque" aria-label="Username" aria-describedby="basic-addon1"  autocomplete="off">
+             </div>
+         </div>
+         <div class="col-md-6 to">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1"><i class="fa fa-edit"> </i> </span>
+              </div>
+              <input type="date" name="fechaCobro" ngModel class="form-control" required placeholder="fecha de Cobro" aria-label="Username" aria-describedby="basic-addon1"  autocomplete="off">
+           </div>
+       </div>
+
+      
+        
+            <div class="col-md-6 to" >
+                <div class="input-group">
+                 <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1"><i class="fa fa-search"> </i> </span>
+                 </div>
+                 <input (keypress)="dataToggle()" type="text" name="nombreVendedor" [(ngModel)]="nombreVendedor" autocomplete="off" class="form-control" placeholder="Elija un Vendedor" aria-label="Username" aria-describedby="basic-addon1"  autocomplete="off">
+                 <input  type="hidden" required name="idVendedor" [(ngModel)]="idVendedor"  aria-label="Username" aria-describedby="basic-addon1"  autocomplete="off" required>
+              </div>
+
+              <div class="product" *ngIf="toggle">
+                  <div class="alert alert-primary">
+                   <div (click)="selectVendedor(vendedor)" class="data" *ngFor="let vendedor of ven | dataFilter : nombreVendedor">
+                     {{ vendedor.nombreVendedor}}
+                   </div>
+                   </div>
+              </div>
+             </div>
+            
+             <div class="col-md-6 to" >
+                <div class="input-group">
+                 <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1"><i class="fa fa-search"> </i> </span>
+                 </div>
+                 <input (keypress)="dataToggle1()" type="text" name="nombreCliente" [(ngModel)]="nombreCliente" autocomplete="off" class="form-control" placeholder="Elija un Cliente" aria-label="Username" aria-describedby="basic-addon1"  autocomplete="off">
+                 <input  type="hidden" required name="idCliente" [(ngModel)]="idCliente"  aria-label="Username" aria-describedby="basic-addon1"  autocomplete="off" required>
+              </div>
+          
+              <div class="product" *ngIf="toggle1">
+                  <div class="alert alert-primary">
+                   <div (click)="selectCli(item)" class="data" *ngFor="let item of datas | dataFilter : nombreCliente">
+                     {{ item.nombreCliente }}
+                   </div>
+                   </div>
+              </div>
+             </div>
+    
+         <div class="col-md-8 to" *ngIf="cambio == false" >
+              <button [disabled]="formas.invalid"
+              type="submit" class="btn btn-outline-success btn-block verifi">Aceptar</button>
+         </div>
+
+         <div class="col-md-8 to" *ngIf="cambio == true" >
+            <button [disabled]="formas.invalid"
+            type="button" class="btn btn-outline-success btn-block verifi"><i class="fa fa-spinner fa-spin"></i> Guardando ...</button>
+       </div>
+       </div>
+           
+     </form>
+
+     <a class="btn btn-warning" routerLink="../listaPagos">Listado de Cobros</a>
+</div>
+

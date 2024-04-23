@@ -1,0 +1,63 @@
+<div class="row">
+  <div class="col-md-5"></div>
+  <div class="col-md-7">
+    <div class="spiner" *ngIf="loader == false">
+      <img src="assets/img/cargando.gif" alt="" width="120">
+    </div>
+  </div>
+</div>
+
+
+<form #forma="ngForm" (ngSubmit)="editarVen(forma)" *ngIf="loader == true">
+<div class="container to animated fadeIn">
+   <div class="row">
+      <div class="col-md-12">
+        <nav aria-label="breadcrumb">
+         <ol class="breadcrumb text-center">
+          <li class="breadcrumb-item active " aria-current="page">Editar Vendedor</li>
+         </ol>
+       </nav>
+      </div>
+     <div class="col-md-6 to">
+       <div class="input-group mb-3">
+        <div class="input-group-prepend">
+         <span class="input-group-text" id="basic-addon1"><i class="fa fa-edit"> </i> </span>
+        </div>
+        <input type="text" (change)="comprobarVendedor(forma)" name="nombreVendedor" [(ngModel)]="ven.nombreVendedor" class="form-control" placeholder="Nombre del Vendedor" aria-label="Username" aria-describedby="basic-addon1" required autocomplete="off">
+     </div>
+     <small>(nombre vendedor)</small>
+     </div>
+     <div class="col-md-6 to">
+       <div class="input-group mb-3">
+        <div class="input-group-prepend">
+         <span class="input-group-text" id="basic-addon1"><i class="fa fa-edit"> </i> </span>
+        </div>
+        <input type="number" name="telefonoVendedor" [(ngModel)]="ven.telefonoVendedor" class="form-control" placeholder="Teléfono del Vendedor" aria-label="Username" aria-describedby="basic-addon1" required autocomplete="off">
+     </div>
+     <small>(telefóno vendedor)</small>
+
+     </div>
+
+     <div class="col-md-6 to" *ngIf="!comprobarVen">
+       <button [disabled]="forma.invalid"
+       type="submit" class="btn btn-primary btn-block btn-lg">Editar Vendedor</button>
+     </div>
+     <div class="col-md-6 to" *ngIf="!comprobarVen">
+       <button (click)="back()"
+       type="submit" class="btn btn-success btn-block btn-lg">Salir sin editar </button>
+     </div>
+
+     <div  *ngIf="comprobarVen">
+       <div class="col-md-12">
+         <span class="alert alert-danger">El vendedor ya exite. Consulte la tabla vendedores</span>
+      </div>
+    </div>
+    <br><br>
+<div *ngIf="comprobarVen">
+  <div class="col-md-12">
+    <span class="alert alert-info">Modifique el nombre del vendedor  y has click en cualquier parte de la pantalla.</span>
+  </div>
+</div>
+   </div>
+</div>
+</form>

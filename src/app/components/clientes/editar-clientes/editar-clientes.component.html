@@ -1,0 +1,61 @@
+<div class="row">
+  <div class="col-md-5"></div>
+  <div class="col-md-7">
+    <div class="spiner" *ngIf="loader == false">
+      <img src="assets/img/cargando.gif" alt="" width="120">
+    </div>
+  </div>
+</div>
+
+<form #forma="ngForm" (ngSubmit)="editarCli(forma)" *ngIf="loader == true" >
+<div class="container to animated fadeIn">
+   <div class="row">
+      <div class="col-md-12">
+        <nav aria-label="breadcrumb">
+         <ol class="breadcrumb text-center">
+          <li class="breadcrumb-item active " aria-current="page">Editar Cliente</li>
+         </ol>
+       </nav>
+      </div>
+     <div class="col-md-6 to">
+       <div class="input-group mb-3">
+        <div class="input-group-prepend">
+         <span class="input-group-text" id="basic-addon1"><i class="fa fa-edit"> </i> </span>
+        </div>
+        <input type="text" name="nombreCliente" [(ngModel)]="cli.nombreCliente" class="form-control" placeholder="Nombre del Cliente" aria-label="Username" aria-describedby="basic-addon1" required autocomplete="off">
+     </div>
+     </div>
+     <div class="col-md-6 to">
+       <div class="input-group mb-3">
+        <div class="input-group-prepend">
+         <span class="input-group-text" id="basic-addon1"><i class="fa fa-edit"> </i> </span>
+        </div>
+        <input type="number" name="telefonoCliente" [(ngModel)]="cli.telefonoCliente" class="form-control" placeholder="Teléfono del Cliente" aria-label="Username" aria-describedby="basic-addon1" required autocomplete="off">
+     </div>
+     </div>
+     <div class="col-md-6 to">
+       <div class="input-group mb-3">
+        <div class="input-group-prepend">
+         <span class="input-group-text" id="basic-addon1"><i class="fa fa-edit"> </i> </span>
+        </div>
+        <input type="text" name="direccionCliente" [(ngModel)]="cli.direccionCliente" class="form-control" placeholder="Dirección del Cliente" aria-label="Username" aria-describedby="basic-addon1" required autocomplete="off">
+     </div>
+     </div>
+
+
+      <div class="col-md-6 to"  *ngIf="cambio==false" >
+        <button [disabled]="forma.invalid"
+        type="submit" class="btn btn-primary btn-block btn-lg">Editar Cliente</button>
+      </div>
+      <div class="col-md-6 to"  *ngIf="cambio==true" >
+        <button [disabled]="forma.invalid"
+        type="submit" class="btn btn-primary btn-block btn-lg"><i class="fa fa-spinner fa-spin"></i> Guardando...</button>
+      </div>
+      <div class="col-md-6 to" *ngIf="cambio==false">
+        <button [disabled]="forma.invalid"
+        type="submit" class="btn btn-primary btn-block btn-lg" (click)="back()">Salir sin editar</button>
+      </div>
+   </div>
+</div>
+</form>
+<hr class="hr">

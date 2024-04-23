@@ -1,0 +1,31 @@
+
+
+    <div class="page">
+
+      <app-cabezera></app-cabezera>
+      <div class="page-content d-flex align-items-stretch">
+
+     <app-menu></app-menu>
+
+       <div class="content-inner">
+
+             <header class="page-header">
+              <div class="container-fluid">
+                <h2 class="no-margin-bottom text-center">Clientes</h2>
+              </div>
+            </header>
+
+         <div class="container main">
+            <div class="fondo">
+              <!-- aqui va el contenido... -->
+              <nav class="nav nav-pills nav-fill">
+               <a class="nav-item nav-link" routerLinkActive="activo"  [routerLink]="['listadoCli']"><i class="fa fa-list"></i> Listado Clientes</a>
+               <a class="nav-item nav-link" routerLinkActive="activo"  [routerLink]="['agregarCli']" ><i class="fa fa-plus-square"></i> Agregar Clientes</a>
+               <a class="nav-item nav-link" routerLinkActive="activo"  [routerLink]="['editarCli']" ><i class="fa fa-pencil"></i> Editar Clientes</a>
+              </nav>
+              <router-outlet></router-outlet>
+
+        <app-footer></app-footer>
+        </div>
+      </div>
+    </div>

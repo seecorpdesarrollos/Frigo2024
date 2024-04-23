@@ -1,0 +1,71 @@
+
+  <div class="tab-pane tops"  role="tabpanel" aria-labelledby="profile-tab">
+     
+      <div class="row">
+        <!-- <div class="col-md-2"></div> -->
+        <div class="col-md-12 mx-auto" *ngIf="fe==false">
+           <form #forma="ngForm" (ngSubmit)="fecha(forma)">
+               <div class="row">
+                 <div class="col">
+                   <input type="date" name="fechaInicial" ngModel class="form-control" placeholder="First name" required>
+                 </div>
+                 <div class="col">
+                   <input type="date" name="fechaFinal" ngModel class="form-control" placeholder="Last name" required>
+                 </div>
+                 <div class="col" *ngIf="!cambio">
+                     <input [disabled]="forma.invalid"
+                     type="submit" class="btn btn-primary mb-2" placeholder="Last name" value="Consultar">
+                   </div>
+                   <div class="col" *ngIf="cambio">
+                      <button 
+                  type="submit" class="btn btn-primary"> <i class="fa fa-spinner fa-spin"></i> Buscando ....</button>
+                   </div>
+               </div>
+             </form>
+           </div>
+        <div class="col-md-12 tops" *ngIf="fe==true">
+           <table class="table table-bordered table-sm"
+           >
+               <thead class="bg-info ">
+                 <tr>
+                   <th class="text-white">Fecha Venta</th>
+                   <th class="text-white">Descripción</th>
+                   <th class="text-white">Nombre Cliente</th>
+                   <th class="text-white">kilos</th>
+                   <th class="text-white">Precio</th>
+                 </tr>
+               </thead>
+               <tbody *ngIf="nada == false">
+                 <tr *ngFor=" let item of getFecha">
+                   <th scope="row">{{item.fecha | date: 'dd/MM/yyyy'}}</th>
+                   <td>{{item.descripcion}}</td>
+                   <td>{{item.nombreCliente}}</td>
+                   <td>{{item.kilo}}</td>
+                   <td>{{item.precio}}</td>
+                 </tr>
+               
+               </tbody>
+
+               <tbody *ngIf="nada == true">
+                  <tr>
+                   <td colspan="6"><h2>No hay datos en las fechas seleccionadas</h2></td>
+                  </tr>
+                
+                </tbody>
+               <tfoot *ngIf="nada == false">
+                   <td colspan="6">
+                     <mfBootstrapPaginator [rowsOnPageSet]="[10,25,100,200]"></mfBootstrapPaginator>
+                     <span class="alert alert-info"> Cantidad de productos comprados : {{ getFecha.length}}</span>
+                     <span class="alert alert-info"> Importe total de las ventas: $ {{ totals | number  }}</span>
+                   </td>
+                 
+                 </tfoot>
+               
+             </table>
+             <div class="col-md-4">
+                 <button type="button"  (click)="nueva()"  class="btn btn-warning">Nueva Consulta</button>
+               </div>
+        </div>
+      </div>
+ 
+   </div>
