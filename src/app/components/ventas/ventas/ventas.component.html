@@ -1,4 +1,7 @@
+
+<br>
 <div class="row to">
+
     <div class="col-md-12">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
@@ -6,10 +9,11 @@
             </ol>
         </nav>
     </div>
+    <br>
     <!-- legir cliete y productos  -->
     <div class="col-md-5">
         <div class="card">
-            <p class="alert alert-info"><i class="fa fa-edit"></i> Datos Fectura</p>
+            <p class="alert alert-info text-center"><i class="fa fa-edit"></i> Datos Fectura</p>
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
                     <a class="nav-link" [ngClass]="{'activo': flag==true}" (click)="media()" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Media Res</a>
@@ -62,7 +66,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-6 to">
-                            <select class="custom-select" name="cuartos" ngModel>
+                            <select class="form-select" name="cuartos" ngModel>
                              <option value="" disabled >Elegir  Cuarteo</option>
                               <option *ngFor="let item of datos"  [ngValue]="item.pecho  + '/' + item.idCuarteo + '/' + 'pecho' ">{{ item.pecho}}K : Pecho</option>
                               <option *ngFor="let item of datos"  [ngValue]="item.mocho  + '/' + item.idCuarteo + '/' + 'mocho' ">{{ item.mocho}}K : Mocho</option>
@@ -100,8 +104,8 @@
     <!--detalle de Factura  -->
     <div class="col-md-7">
         <div class="card">
-            <p class="alert alert-info"><i class="fa fa-edit"></i> Detalle Fectura</p>
-            <div class="card-body" class="animated fadeIn">
+            <p class="alert alert-info text-center"><i class="fa fa-edit"></i> Detalle Fectura</p>
+            <div class="card-body" class ="animated fadeIn">
                 <div id="impresion">
 
 
@@ -184,7 +188,7 @@
                         <div class="col-md-4"></div>
                         <div class="col-md-2"></div>
                         <div class="col-md-5">
-                            <p class="alert alert-danger"> Factura Nro: {{ this.fac[0].total | number}}</p>
+                            <p class="alert alert-danger"> Factura Nro: {{ fac1 | number}}</p>
                         </div>
                         <input type="hidden" name="fac" [(ngModel)]="fac" value="" required>
                         <input type="hidden" name="su" [(ngModel)]="su" value="" required>

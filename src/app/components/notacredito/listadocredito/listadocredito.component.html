@@ -15,38 +15,42 @@
         </ol>
     </nav>
     <div class="row">
-
-        <div class="input-group mb-3 col-md-6 to">
-            <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon1"><i class="fa fa-search"> </i> </span>
-            </div>
-            <input (keypress)="dataToggle1()" type="text" name="nombreCliente" [(ngModel)]="nombreCliente" autocomplete="off" class="form-control" placeholder="Elija un Cliente" aria-label="Username" aria-describedby="basic-addon1" autocomplete="off">
-            <input type="hidden" name="idCliente" [(ngModel)]="idCliente" autocomplete="off" class="form-control" placeholder="Eligir un Cliente" aria-label="Username" aria-describedby="basic-addon1" autocomplete="off" required>
-
-            <div class="product to" *ngIf="toggle1">
-                <div class="alert alert-primary">
-                    <div (click)="selectCli(item)" class="data" *ngFor="let item of datas | dataFilter : nombreCliente">
-                        {{ item.nombreCliente }}
+        <div class="col-md-6">
+            <div class="input-group mb-3  to">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1"><i class="fa fa-search"> </i> </span>
+                </div>
+                <input (keypress)="dataToggle1()" type="text" name="nombreCliente" [(ngModel)]="nombreCliente" autocomplete="off" class="form-control" placeholder="Elija un Cliente" aria-label="Username" aria-describedby="basic-addon1" autocomplete="off">
+                <input type="hidden" name="idCliente" [(ngModel)]="idCliente" autocomplete="off" class="form-control" placeholder="Eligir un Cliente" aria-label="Username" aria-describedby="basic-addon1" autocomplete="off" required>
+    
+                <div class="product to" *ngIf="toggle1">
+                    <div class="alert alert-primary">
+                        <div (click)="selectCli(item)" class="data" *ngFor="let item of datas | dataFilter : nombreCliente">
+                            {{ item.nombreCliente }}
+                        </div>
                     </div>
                 </div>
+    
             </div>
+        </div>
 
-        </div>
-        <div class="col-md-1 btn btn-danger" (click)="reset()">
-            <i class="fa fa-refresh"> </i>
-        </div>
+        <div class="col-md-1 to" (click)="reset()">
+            <button class="btn btn-danger">
+              <i class="fa fa-refresh"> </i>
+            </button> 
+          </div>
     </div>
     <div class="table-responsive to">
-        <table class="table table-bordered table-hover table-sm">
-            <thead class="bg-primary ">
+        <table class="table table-bordered table-hover table-striped">
+            <thead class="table-primary">
                 <tr>
 
-                    <th class="text-white">Fecha</th>
-                    <th class="text-white">Cliente</th>
-                    <th class="text-white">Descripción</th>
-                    <th class="text-white">Cantidad</th>
-                    <th class="text-white">Importe</th>
-                    <th class="text-white">Total</th>
+                    <th class="">Fecha</th>
+                    <th class="">Cliente</th>
+                    <th class="">Descripción</th>
+                    <th class="">Cantidad</th>
+                    <th class="">Importe</th>
+                    <th class="">Total</th>
                     <!-- <th class="text-white">Acciones</th> -->
                 </tr>
             </thead>

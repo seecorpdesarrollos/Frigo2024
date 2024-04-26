@@ -2,7 +2,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 body {
-    font-family: 'Montserrat', sans-serif;
+   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .verifi {
@@ -27,7 +27,7 @@ body {
 }
 
 .tops1 {
-    margin-top: 18px;
+    margin-top: 24px;
 }
 
 .hiden {
@@ -66,12 +66,17 @@ body {
     cursor: pointer;
 }
 
+.bg-primary1{
+    background: #1b1bff!important;
+    padding: 10px;
+}
+
 #toggle-btn {
     cursor: pointer;
 }
 
 .fondo {
-    width: 120%;
+    width: 104%;
     padding: 5px;
     background: #fff;
     border: 1px solid #d0d0d0;
@@ -152,8 +157,7 @@ body {
 .modal {
     background: rgba(0, 0, 0, 0.5);
 }
+td{
+    padding: 5px;
+}
 
-
-/* .tabla{
-  overflow: hidden !important;
-} */

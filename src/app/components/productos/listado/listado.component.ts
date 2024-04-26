@@ -80,15 +80,16 @@ loader:boolean = false;
   }
 
   inprimirTropa(impresion:any){
-    // var contenido= document.getElementById(impresion).innerHTML;
-    // var contenidoOriginal= document.body.innerHTML;
+    const contenido:any = document.getElementById(impresion)?.innerHTML;
+    const contenidoOriginal= document.body.innerHTML;
     
-    // document.body.innerHTML = contenido;
     
-    // window.print();
+    document.body.innerHTML = contenido;
     
-    // document.body.innerHTML = contenidoOriginal;
-    // location.reload();
+    window.print();
+    
+    document.body.innerHTML = contenidoOriginal;
+    location.reload();
   }
 
 

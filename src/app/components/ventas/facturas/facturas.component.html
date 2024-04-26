@@ -11,7 +11,7 @@
 <div class="container to animated fadeIn" *ngIf="loader">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item active" aria-current="page"> <i class="fa fa-list"></i> Listado de Productos</li>
+            <li class="breadcrumb-item active" aria-current="page"> <i class="fa fa-list"></i> Listado de Facturas</li>
         </ol>
     </nav>
     <div class="row">
@@ -43,22 +43,24 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-1 btn btn-danger" (click)="reset()">
+        <div class="col-md-1" (click)="reset()">
+          <button class="btn btn-danger">
             <i class="fa fa-refresh"> </i>
+          </button> 
         </div>
     </div>
     <div class="table-responsive">
         <div class="card">
             <div class="card-body">
 
-                <table class="table table-bordered table-sm">
-                    <thead class="bg-info">
-                        <tr>
-                            <th class="text-white" scope="col">Nro: Factura</th>
-                            <th class="text-white" scope="col">Fecha Venta</th>
-                            <th class="text-white" scope="col">Cliente</th>
-                            <th class="text-white" scope="col">Total</th>
-                            <th class="text-white text-center" scope="col">Descargar</th>
+                <table class="table table-bordered table-hover table-striped">
+                    <thead class="table-primary">
+                        <tr >
+                            <th class="" scope="col">Nro: Factura</th>
+                            <th class="" scope="col">Fecha Venta</th>
+                            <th class="" scope="col">Cliente</th>
+                            <th class="" scope="col">Total</th>
+                            <th class=" text-center" scope="col">Descargar</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -110,121 +112,92 @@
         </button>
             </div>
             <div class="modal-body" id="facturas" #facturas>
-                <hr>
-                <br>
+             
                 <div class="row">
-                    <div class="col-md-4"></div>
-
-                    <br><br>
-                    <div class="col-md-4">
-                        <p></p>
-                        <h2> Nro.Factura : {{ factura }} </h2>
-                        <h4> Fecha : {{fecha | date: "dd/MM/yyyy" }} </h4>
+                    <div class="col-md-3">
+                        <img src="assets/img/logo.jpg" width="70">
                     </div>
-                    <div class="col-md-6"></div>
+
+                    <div class="col-md-5">
+                        <span class="text-secondary">LOS MAGNATES</span>
+                        <span><b>Localidad</b>: Arroyo Seco</span><br>
+                        <b>Provincia</b>: Santa Fe 
+                    </div>
+                
+                    <div class="col-md-3">
+                        Juan Pablo Alvarez <br>
+                        20-30590206-4
+                    </div>
                 </div>
-                <hr>
-                <br>
-                <table class="table table-hover table-striped table-sm">
-                    <tr>
-                        <td>
-                            <h3><u>Cliente: </u></h3>
-                            <br>
-                        </td>
-                        <td></td>
-                        <td>
-                            <h3>{{ nombreCliente | uppercase}}</h3>
-                            <br>
-                            <p class="display-5">Dirección: {{ direccionCliente | uppercase}}</p>
-                            <p class="display-5">Teléfono: {{ telefonoCliente | uppercase}}</p>
-                        </td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <div class="row">
-                        <div class="col-md-12">
-
-                            <tr>
-                                <td>
-                                    <h3><u>Detalle de la factura</u></h3>
-                                </td>
-                            </tr>
-
-                        </div>
+                <hr class="hrs">
+                <div class="row">
+                    <div class="col-auto me-auto">
+                      <h2 class="text"> Factura </h2> 
                     </div>
-                    <br><br><br>
-                    <tr class="text">
+                    <div class="col-auto ">
+                        <h6 class="mb-0"> Fecha : {{fecha | date: "dd/MM/yyyy" }} </h6> 
+                        <h6> Factura #: {{ factura }} </h6>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 h6">
+                    <b>Facturar a</b>
+                   <p class="mb-0 text-capitalize"> {{ nombreCliente }}</p>
+                   <p class="mb-0 text-capitalize">Dirección: {{ direccionCliente }}</p>
+                   <p >Teléfono: {{ telefonoCliente }}</p>
+                     
+                </div>
+                    <div class="col-md-6">
+                        <h6> <b>Facturado por</b><p class="mb-0 text-capitalize"> {{nombreAdmin}}</p> </h6> 
+                     
+                    </div>
+                </div>
 
-                        <th>Descripción</th>
-                        <th></th>
-                        <th>Kilos</th>
-                        <th>Precio</th>
-                        <th>Sub Total</th>
-                    </tr>
-                    <tr class="text1" *ngFor="let datos of todoData">
-                        <td> {{ datos.descripcion}}</td>
-                        <td> </td>
-                        <td> {{ datos.kilo}}</td>
-                        <td> $ {{ datos.precio | number}}</td>
-                        <td> $ {{ datos.precio * datos.kilo | number}}</td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-
-                    </tr>
-                    <tr>
-                        <th scope="row"></th>
-                        <td colspan="3">TOTAL</td>
-                        <td class="text1">$ {{ totalVenta | number }}</td>
-                    </tr>
-                </table>
+     
+                    <div class="invoicelist-body">
+                      <table class="table ">
+                        <thead >
+                          
+                          <th width="60%">Descripción</th>
+                          
+                          <th width="10%">Cant.</th>
+                          <th width="15%">Precio</th>
+                        
+                          <th width="20%">Total</th>
+                       
+                        </thead>
+                        <tbody *ngFor="let datos of todoData">
+                          <tr>
+                          
+                            <td width='60%'><span >{{ datos.descripcion}}</span></td>
+                            <td class="amount"> {{ datos.kilo}}</td>
+                            <td class="rate">{{ datos.precio | number}}</td>
+                          
+                            <td class="sum"> {{datos.precio * datos.kilo | number}}</td>
+                       
+                          </tr>
+                        </tbody>
+                      </table>
+                    
+                    </div><!--.invoice-body-->
+                    
+                    <div class="invoicelist-footer">
+                      <table class="table " >
+                        
+                        <tr>
+                          <td><strong>Total:</strong></td>
+                          <td id="total_price">{{ totalVenta | number }}</td>
+                        </tr>
+                      </table>
+                    </div>
+                    
+                    <footer class="row">
+                      <div class="col-12 text-center">
+                        <p class="notaxrelated" >Software creado por  Grupo LYB</p>
+                        <small class="blockquote-footer"><cite>www.grupolyb.com</cite></small>
+                        
+                      </div>
+                    </footer>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" (click)="inprimirFactura('facturas')">IMPRIMIR</button>
@@ -233,3 +206,5 @@
         </div>
     </div>
 </div>
+
+

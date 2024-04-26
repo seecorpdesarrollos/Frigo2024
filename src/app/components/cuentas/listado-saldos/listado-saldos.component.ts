@@ -69,28 +69,30 @@ export class ListadoSaldosComponent implements OnInit {
 
 
     print(imprimir:any){
-      // var contenido= document.getElementById(imprimir).innerHTML;
-      // var contenidoOriginal= document.body.innerHTML;
+      const contenido:any = document.getElementById(imprimir)?.innerHTML;
+      const contenidoOriginal= document.body.innerHTML;
       
-      // document.body.innerHTML = contenido;
       
-      // window.print();
+      document.body.innerHTML = contenido;
       
-      // document.body.innerHTML = contenidoOriginal;
-      // location.reload();
+      window.print();
+      
+      document.body.innerHTML = contenidoOriginal;
+      location.reload();
      }
 
 
     print1(imprimir1:any){
-      // var contenido= document.getElementById(imprimir1).innerHTML;
-      // var contenidoOriginal= document.body.innerHTML;
+      const contenido:any = document.getElementById(imprimir1)?.innerHTML;
+      const contenidoOriginal= document.body.innerHTML;
       
-      // document.body.innerHTML = contenido;
       
-      // window.print();
+      document.body.innerHTML = contenido;
       
-      // document.body.innerHTML = contenidoOriginal;
-      // location.reload();
+      window.print();
+      
+      document.body.innerHTML = contenidoOriginal;
+      location.reload();;
      }
    
 

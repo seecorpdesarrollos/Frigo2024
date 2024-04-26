@@ -33,26 +33,49 @@ export class ListaInvComponent implements OnInit {
   total:any=0;
   totales:any=0;
   totalMedia:any=0;
+  totalKilos:any=0;
    data: any;
+datos:any;
+   getTotal(){
+    this.service.getTotal()
+    .subscribe(data=>{ 
+      this.datos = data;
+      this.totales = this.datos.kilosTotales;
+      this.total = this.datos.medias;
+    });
+   }
+
+   datosDisponibles:any;
+   getTotalDisponible(){
+    this.service.getTotalDisponible()
+    .subscribe(data=>{ 
+      this.datosDisponibles = data;
+      this.totalMedia = this.datosDisponibles.disponibles;
+      this.totalKilos = this.datosDisponibles.kilos;
+
+    });
+   }
 
     getInventario(){
+      this.getTotal();
+      this.getTotalDisponible();
       this.service.getInventarioTotal(this.desde,this.hasta)
       .subscribe(res=>{
      
         this.loader = true;
         this.data= res;
-        for (let i = 0; i < this.data.length; i++) {
-          this.totales = parseInt(this.data[i].kiloMedia) + parseInt(this.totales);
+        // for (let i = 0; i < this.data.length; i++) {
+        //   this.totales = parseInt(this.data[i].kiloMedia) + parseInt(this.totales);
 
-         if (this.data[i].cantidad != 0) {
-           this.total = parseInt(this.data[i].kiloMedia) + parseInt(this.total);
-         }
-         if (this.data[i].cantidad != 0 ) {
-             this.totalMedia = parseInt(this.data[i].cantidad) + parseInt(this.totalMedia);
+        //  if (this.data[i].cantidad != 0) {
+        //    this.total = parseInt(this.data[i].kiloMedia) + parseInt(this.total);
+        //  }
+        //  if (this.data[i].cantidad != 0 ) {
+        //      this.totalMedia = parseInt(this.data[i].cantidad) + parseInt(this.totalMedia);
 
-         }
+        //  }
 
-        }
+        // }
       })
     }
     filterQuery:any;
@@ -89,9 +112,7 @@ export class ListaInvComponent implements OnInit {
       // alert('la tropas es :' + nroTropa);
       this.service.getInventarioTropa(nroTropa)
       .subscribe( resTropa=>{
-        console.log(resTropa);
-        
-     
+       
         this.tropa = nroTropa;
         this.dataTropa= resTropa;
         for (let i = 0; i < this.dataTropa.length; i++) {
@@ -100,21 +121,24 @@ export class ListaInvComponent implements OnInit {
          this.totalTropaLength= this.dataTropa.length;
          this.service.getTotalTropa(nroTropa)
          .subscribe(resTotal=>{
-          //  this.totalTropa = resTotal[0].total
+         
+          this.totalTropa = resTotal;
+          this.totalTropa = this.totalTropa[0].total
          });
       })
     }
 
     imprimir(areaImprimir:any){
-      // var contenido= document.getElementById(areaImprimir).innerHTML;
-      // var contenidoOriginal= document.body.innerHTML;
+      const contenido:any = document.getElementById(areaImprimir)?.innerHTML;
+      const contenidoOriginal= document.body.innerHTML;
       
-      // document.body.innerHTML = contenido;
       
-      // window.print();
+      document.body.innerHTML = contenido;
       
-      // document.body.innerHTML = contenidoOriginal;
-      // location.reload();
+      window.print();
+      
+      document.body.innerHTML = contenidoOriginal;
+      location.reload();
     }
 
 

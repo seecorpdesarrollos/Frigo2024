@@ -37,7 +37,7 @@ export class AgregarInvComponent implements OnInit {
   }
 
   kiloMedia:number=0;
-  public nroTropa:number=0;
+  public nroTropa:any;
   agregarInv(){
       
     // this.kiloMedia = forma.value.kiloMedia;

@@ -8,7 +8,7 @@ declare var $:any;
 @Component({
   selector: 'app-facturas',
   templateUrl: './facturas.component.html',
-  styles: []
+  styleUrls: ['./factura.css']
 })
 export class FacturasComponent implements OnInit {
 
@@ -19,8 +19,9 @@ export class FacturasComponent implements OnInit {
 
      }
 
-
+     nombreAdmin:any;
   ngOnInit() {
+    this.nombreAdmin = localStorage.getItem('nombreAdmin');
     this.getFacturado();
   }
 
@@ -39,7 +40,7 @@ loader:boolean = false;
       this.loader = true;
       this.data= res;
       // this.nro = res[0].nroFactura;
-      // console.log(res);
+      console.log(res);
       
     
     })
@@ -54,7 +55,6 @@ loader:boolean = false;
     .subscribe(data=>{
       if (data == 'error') {
      return   this.finData = true;
-        // console.error('fin...')
       } else {
         this.madData = data;
         this.data.push( ...this.madData);
@@ -72,6 +72,7 @@ loader:boolean = false;
   telefonoCliente:any
   fecha:any;
   totalVenta:any
+  sum:number=0;
   facturar(nroFactura:any ,nombreCliente:any,direccionCliente:any,telefonoCliente:any , fecha:any, totalVenta:any){
     this.factura = nroFactura;
     this.nombreCliente = nombreCliente;
@@ -79,10 +80,17 @@ loader:boolean = false;
     this.telefonoCliente = telefonoCliente;
     this.fecha = fecha;
     this.totalVenta = totalVenta;
+    this.sum = 0;
    $('#factura').modal('show');
     this.service.getDetalles(nroFactura)
     .subscribe(res=>{
       this.todoData = res;
+      for (let i = 0; i < this.todoData.length; i++) {
+        
+        const element = this.todoData[i].precio * this.todoData[i].kilo;
+        this.sum = this.sum + element
+        
+      }
       // console.log(res)
       // console.log(this.factura)
     })

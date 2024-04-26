@@ -15,8 +15,8 @@
         </ol>
     </nav>
     <div class="row">
-
-        <div class="input-group mb-3 col-md-6 to">
+        <div class="col-md-6" >
+        <div class="input-group mb-3 col-md-12 to">
             <div class="input-group-prepend">
                 <span class="input-group-text" id="basic-addon1"><i class="fa fa-search"> </i> </span>
             </div>
@@ -32,23 +32,26 @@
             </div>
 
         </div>
-        <div class="col-md-1 btn btn-danger" (click)="reset()">
-            <i class="fa fa-refresh"> </i>
         </div>
+        <div class="col-md-1 to" (click)="reset()">
+            <button class="btn btn-danger">
+              <i class="fa fa-refresh"> </i>
+            </button> 
+          </div>
     </div>
     <div class="table-responsive to">
-        <table class="table table-bordered table-hover table-sm">
-            <thead class="bg-primary ">
+        <table class="table table-bordered table-hover table-striped">
+            <thead class="table-primary">
                 <tr>
 
-                    <th class="text-white">Fecha</th>
-                    <th class="text-white">id Nota</th>
-                    <th class="text-white">Cliente</th>
-                    <th class="text-white">Descripción</th>
-                    <th class="text-white">Cantidad</th>
-                    <th class="text-white">Importe</th>
-                    <th class="text-white">Total</th>
-                    <th class="text-white">Nro Cheque</th>
+                    <th class="">Fecha</th>
+                    <th class="">id Nota</th>
+                    <th class="">Cliente</th>
+                    <th class="">Descripción</th>
+                    <th class="">Cantidad</th>
+                    <th class="">Importe</th>
+                    <th class="">Total</th>
+                    <th class="">Nro Cheque</th>
                 </tr>
             </thead>
             <tbody>

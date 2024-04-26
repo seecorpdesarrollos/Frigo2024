@@ -17,12 +17,12 @@
             <form #action="ngForm" (ngSubmit)="buscarMedia(action)">
                 <div class="row">
                     <div class="col tops1">
-
+                      
                         <input autocomplete="off" required name="medida" type="text" class="form-control" placeholder="Buscar Tropa o Kilos " [(ngModel)]="filterQuery" aria-label="Username" aria-describedby="basic-addon1">
                     </div>
                     <div class="col">
                         {{select}}
-                        <select class="custom-select" name="tipo" ngModel required>
+                        <select class="form-select" name="tipo" ngModel required>
                       
                       <option value="1">Kilos</option>
                       <option value="2">Tropa</option>
@@ -38,16 +38,16 @@
             <div class="table-responsive">
                 <div class="card">
                     <div class="card-body">
-                        <table class="table table-bordered table-sm">
-                            <thead class="bg-info">
+                        <table class="table table-bordered table-hover table-striped">
+                            <thead class="table-primary">
                                 <tr>
 
-                                    <th class="text-white" scope="col"> Kilos Media</th>
-                                    <th class="text-white" scope="col">Nro.Tropa</th>
-                                    <!-- <th class="text-white" scope="col">Fecha Faena</th> -->
-                                    <th class="text-white" scope="col">Estado</th>
-                                    <!-- <th class="text-white" scope="col">Restantes</th> -->
-                                    <th class="text-white text-center" scope="col">Acciones</th>
+                                    <th class="" scope="col"> Kilos Media</th>
+                                    <th class="" scope="col">Nro.Tropa</th>
+                                    <!-- <th class="" scope="col">Fecha Faena</th> -->
+                                    <th class="" scope="col">Estado</th>
+                                    <!-- <th class="" scope="col">Restantes</th> -->
+                                    <th class=" text-center" scope="col">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>

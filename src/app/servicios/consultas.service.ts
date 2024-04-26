@@ -17,6 +17,7 @@ export class ConsultasService {
    { 'idCliente': idCliente })
    .pipe(
     map((e)=> {
+      
       return e
     }));
   }

@@ -86,15 +86,16 @@ masInfo(idCuarteoInventario:any){
 
 
 imprimirCuarteo(areaImprimir:any){
-//   location.reload();
-// var contenido= document.getElementById(areaImprimir).innerHTML;
-// var contenidoOriginal= document.body.innerHTML;
-
-// document.body.innerHTML = contenido;
-
-// window.print();
-
-// document.body.innerHTML = contenidoOriginal;
+  const contenido:any = document.getElementById(areaImprimir)?.innerHTML;
+  const contenidoOriginal= document.body.innerHTML;
+  
+  
+  document.body.innerHTML = contenido;
+  
+  window.print();
+  
+  document.body.innerHTML = contenidoOriginal;
+  location.reload();
 }
 
 }

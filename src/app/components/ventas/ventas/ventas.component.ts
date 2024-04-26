@@ -232,21 +232,19 @@ temporal:any
       }
 
 totales:any=0;
+dataTotal:any;
       getTotalTemp(){
         this.serviceInv.getTotalTemp()
         .subscribe(res=>{
+         this.dataTotal = res;
+          if(  this.dataTotal[0].total == null){
+            this.totales = 0;
+          }else{
 
-          console.log(res);
-          
-         
-          // if(res[0].total == null){
-          //   this.totales = 0;
-          // }else{
-
-          //   this.totales= parseFloat(res[0].total);
-          //   // console.log(this.totales)
-          //     this.da();
-          // }
+            this.totales= parseFloat(  this.dataTotal[0].total);
+            console.log(this.totales)
+              this.da();
+          }
 
         })
       }
@@ -373,12 +371,13 @@ getTotalTemp1(){
               setTimeout(()=>{a.unsubscribe()},2000)
             }
 
-  fac:any
+  fac:any;
+  fac1:any;
      getFactura(){
        this.serviceInv.getFactura()
        .subscribe(res=>{
          this.fac = res;
-         console.log( this.fac[0].total)
+        this.fac1 = this.fac[0].total;
        })
      }
      

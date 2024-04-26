@@ -29,11 +29,12 @@
                     </div>
                     <div class="col">
                         {{select}}
-                        <select class="custom-select" name="tipo" ngModel required>
+                        <select class="form-select" name="tipo" ngModel required>
                         
                         <option value="1">Kilos</option>
                         <option value="2">Tropa</option>
                       </select>
+                      
                     </div>
                     <div class="col tops1">
                         <button class="btn btn-warning" [disabled]="action.invalid">Buscar</button>
@@ -45,16 +46,16 @@
             <div class="table-responsive">
                 <div class="card">
                     <div class="card-body">
-                        <table class="table table-bordered table-sm">
-                            <thead class="bg-info">
+                        <table class="table table-bordered table-hover table-striped">
+                            <thead class="table-primary">
                                 <tr>
 
-                                    <th class="text-white" scope="col"> Kilos Media</th>
-                                    <th class="text-white" scope="col">Nro.Tropa</th>
-                                    <th class="text-white" scope="col">Estado</th>
-                                    <th class="text-white" scope="col">Cantidad</th>
-                                    <!-- <th class="text-white" scope="col">Restantes</th> -->
-                                    <th class="text-white text-center" scope="col">Acciones</th>
+                                    <th class="" scope="col"> Kilos Media</th>
+                                    <th class="" scope="col">Nro.Tropa</th>
+                                    <th class="" scope="col">Estado</th>
+                                    <th class="" scope="col">Cantidad</th>
+                                    <!-- <th class="" scope="col">Restantes</th> -->
+                                    <th class=" text-center" scope="col">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -84,10 +85,10 @@
                                 </td>
                             </tr>
                             <td colspan="6">
-                                <span class="alert alert-info"> Cantidad de Medias: {{ data.length }}</span>
-                                <span class="alert alert-info"> Medias para Vender: {{ totalMedia }}</span>
-                                <span class="alert alert-info">Kilos disponibles: {{ total }}</span>
-                                <span class="alert alert-info"> Kilos Totales: {{ totales }}</span>
+                                <span class="alert alert-info"> Cantidad de Medias: {{ totalMedia | number }}</span>
+                                <span class="alert alert-info"> Medias para Vender: {{ totalKilos | number}}</span>
+                                <span class="alert alert-info">Kilos disponibles: {{ total | number }}</span>
+                                <span class="alert alert-info"> Kilos Totales: {{ totales | number}}</span>
                             </td>
                         </table>
                     </div>
@@ -103,7 +104,7 @@
 
 
 <div class="modal fade mediaTropa" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div id="areaImprimir">
                 <div class="row">

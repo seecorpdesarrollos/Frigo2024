@@ -188,6 +188,23 @@ temp1:any;
     }));
 }
 
+getTotal() {
+  return this.http.get( this.url + "reportesController.php?id=getTotal")
+  .pipe(
+    map((e)=> {
+      return e
+    }));
+}
+
+getTotalDisponible() {
+  return this.http.get( this.url + "reportesController.php?id=getTotalDisponible")
+  .pipe(
+    map((e)=> {
+      return e
+    }));
+}
+
+
 
 
 total:any;

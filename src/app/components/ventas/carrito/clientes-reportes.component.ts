@@ -68,8 +68,12 @@ public total:number=0;
 cant:any;
 vender(forma:NgForm){
   this.cambio= true;
+  console.log(this.idCliente);
+  
   this.consulta.getVentas(this.idCliente)
   .subscribe(res=>{
+
+    
     this.pro = true;
     this.data= res;
     this.cant = this.data.length
@@ -99,17 +103,16 @@ nueva(){
 
 
 print(imprimir:any){
+  const contenido:any = document.getElementById(imprimir)?.innerHTML;
+  const contenidoOriginal= document.body.innerHTML;
   
-  // const contenido= document.getElementById(imprimir).innerHTML;
-  // var contenidoOriginal= document.body.innerHTML;
   
-  // document.body.innerHTML = contenido;
+  document.body.innerHTML = contenido;
   
-  // window.print();
+  window.print();
   
-  // document.body.innerHTML = contenidoOriginal;
-  // location.reload();
-  // this.ruta.navigate(['ventas'])
+  document.body.innerHTML = contenidoOriginal;
+  location.reload();
  }
 
 }
