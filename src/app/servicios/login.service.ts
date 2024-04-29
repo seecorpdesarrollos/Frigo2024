@@ -21,7 +21,7 @@ export class LoginService {
   }
 
   getUsuarios() {
-    return this.http.get( this.url + "adminController.php?id=getUsuarios1")
+    return this.http.get( this.url + "adminController.php?id=getUsuarios")
     .pipe(
       map((e)=> {
         return e

@@ -30,7 +30,7 @@ export class AdminComponent implements OnInit {
       .subscribe(response =>{
         this.loader= true;
         this.data = response;
-        // console.log(this.data);
+        console.log(response);
         
       })
   }
