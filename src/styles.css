@@ -99,7 +99,7 @@ textarea:focus,
 input:focus,
 .form-control:focus,
 input[type]:focus {
-    border-color: #fff;
+    border-color: #8644A2;
     box-shadow: 0 1px 1px rgba(249, 249, 249, 0.93)inset, 0 0 8px rgba(249, 249, 249, 0.93);
     outline: 0 none;
 }

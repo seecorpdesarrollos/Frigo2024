@@ -11,7 +11,7 @@ declare var $:any;
 @Component({
   selector: 'app-ventas',
   templateUrl: './ventas.component.html',
-  styles: []
+  styleUrls: ['./ventas.css']
 })
 export class VentasVComponent implements OnInit {
 

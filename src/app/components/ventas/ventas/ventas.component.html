@@ -152,7 +152,7 @@
 
                 <form #forma="ngForm">
                     <div class="row">
-                        <div class="col-md-6 to">
+                        <div class="col-md-6 ">
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon1"><i class="fa fa-search"> </i> </span>
@@ -188,7 +188,7 @@
                         <div class="col-md-4"></div>
                         <div class="col-md-2"></div>
                         <div class="col-md-5">
-                            <p class="alert alert-danger"> Factura Nro: {{ fac1 | number}}</p>
+                            <p class=" text"> Factura Nro: {{ fac1 | number}}</p>
                         </div>
                         <input type="hidden" name="fac" [(ngModel)]="fac1" value="" required>
                         <input type="hidden" name="su" [(ngModel)]="su" value="" required>
