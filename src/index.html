@@ -45,27 +45,27 @@
     <script src="assets/js/app.js"></script>
     <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
     <script>
-        $(document).ready(function() {
-            $('body').bootstrapMaterialDesign();
-            $('.nav-fill').tab('show');
-            $('[data-toggle="tooltip"]').tooltip()
+        // $(document).ready(function() {
+        //     $('body').bootstrapMaterialDesign();
+        //     $('.nav-fill').tab('show');
+        //     $('[data-toggle="tooltip"]').tooltip()
 
-            idle({
-                onIdle: function() {
-                    localStorage.removeItem('nombreAdmin');
-                    localStorage.removeItem('idAdmin');
-                    localStorage.removeItem('rol');
-                    localStorage.removeItem('fechaCreado');
-                    this.rura.navigate(['/login']);
-                },
-                // idle: 3600000,
-                idle: 900000,
+        //     idle({
+        //         onIdle: function() {
+        //             localStorage.removeItem('nombreAdmin');
+        //             localStorage.removeItem('idAdmin');
+        //             localStorage.removeItem('rol');
+        //             localStorage.removeItem('fechaCreado');
+        //             this.rura.navigate(['/login']);
+        //         },
+        //         // idle: 3600000,
+        //         idle: 900000,
 
-                // keepTracking: true,
-            }).start();
-            // console.log(idle);
+        //         // keepTracking: true,
+        //     }).start();
+        //     // console.log(idle);
 
-        });
+        // });
     </script>
 </body>
 

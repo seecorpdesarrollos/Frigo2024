@@ -40,9 +40,6 @@ loader:boolean = false;
       this.loader = true;
       this.data= res;
       // this.nro = res[0].nroFactura;
-      console.log(res);
-      
-    
     })
   }
 
@@ -74,6 +71,7 @@ loader:boolean = false;
   totalVenta:any
   sum:number=0;
   facturar(nroFactura:any ,nombreCliente:any,direccionCliente:any,telefonoCliente:any , fecha:any, totalVenta:any){
+    
     this.factura = nroFactura;
     this.nombreCliente = nombreCliente;
     this.direccionCliente = direccionCliente;
@@ -84,6 +82,7 @@ loader:boolean = false;
    $('#factura').modal('show');
     this.service.getDetalles(nroFactura)
     .subscribe(res=>{
+      
       this.todoData = res;
       for (let i = 0; i < this.todoData.length; i++) {
         
@@ -91,7 +90,6 @@ loader:boolean = false;
         this.sum = this.sum + element
         
       }
-      // console.log(res)
       // console.log(this.factura)
     })
   }

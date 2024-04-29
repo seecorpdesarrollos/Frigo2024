@@ -25,6 +25,7 @@ export class EditarInvComponent implements OnInit {
   loader:boolean = false;
   idInventario= this.parametro.snapshot.params['idInventario'];
   inv:any;
+  cantidad:any;
   getProductosId(){
     // $(document).ready(function(){
     //   $(window).keydown(function(event:any){
@@ -35,16 +36,17 @@ export class EditarInvComponent implements OnInit {
 
     // })
     this.servicio.getInventarioId(this.idInventario)
-    .subscribe(respuesta=>{
+    .subscribe(res=>{
       this.loader = true;
-      // if (respuesta.cantidad == 0) {
-      //   this.loader = false;
-      //   $('#noCantidad').modal('show');
-      // }else{
-      //    this.loader = true;
-      //    return this.inv = respuesta;
-      // }
-    console.log(respuesta)
+      this.cantidad = res
+      if ( this.cantidad.cantidad == 0) {
+        this.loader = false;
+        $('#noCantidad').modal('show');
+      }else{
+         this.loader = true;
+          this.inv = res;
+      }
+    console.log(res)
     })
   }
 
